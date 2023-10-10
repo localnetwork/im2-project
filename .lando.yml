@@ -1,0 +1,17 @@
+name: my-lando-app
+recipe: lamp
+config:
+  php: "7.4"
+  webroot: .
+  xdebug: true
+services:
+  appserver:
+    type: "php:7.4"
+  phpmyadmin:
+    type: phpmyadmin
+  database:
+    type: "mysql:5.7"
+    creds:
+      user: drupal9
+      password: drupal9
+      database: drupal9
