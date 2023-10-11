@@ -86,5 +86,25 @@ class Student {
             return false; // Error
         }
     }
+
+    public function deleteStudent($studentId) {
+        try {
+            $stmt = $this->db->prepare("call sp_deleteStudent(:studentId)");
+            $stmt->bindParam(':studentId', $studentId, PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true; // Success, at least one row was updated
+                } else {
+                    return false; // No rows were updated
+                }
+            } else {
+                return false; // Error during execution
+            } 
+        } catch (PDOException $e) { 
+            echo "Error: " . $e->getMessage();
+            return false; // Error
+        }
+    } 
 }
 ?>

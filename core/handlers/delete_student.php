@@ -2,15 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update Student <?php 
+    <title>Student <?php 
             require_once '../objects/student.php';  
             $student = new Student();  
             $studentExist = $student->getStudent($_POST['studentId']);
             echo $studentExist['first_name']; 
-        ?></title>
+        ?> Deleted</title>
     <?php
         require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
-    ?>
+    ?> 
 </head>
 <body class="page-students">
     <div class="main-wrapper">
@@ -22,38 +22,22 @@
                     $student = new Student(); 
             
                     $studentId = $_POST['studentId'];
-                    $first_name = $_POST['first_name']; 
-                    $last_name = $_POST['last_name']; 
             
                     $studentExist = $student->getStudent($_POST['studentId']); 
 
                     if($studentExist !== false) {
-                        $result = $student->updateStudent($studentId, $first_name, $last_name);
+                        $result = $student->deleteStudent($studentId);
                         if ($result === true) {
-                            echo 'Student updated successfully';
-                        }else {
-                            echo "Can't update student with the same value."; 
+                            echo 'Student deleted successfully';
                         }
                     }else {
                         echo 'Student not found!'; 
-                    }
+                    } 
                 }else {
                     echo "Access denied."; 
                 }
-            ?>
+            ?> 
         </div>
-    </div>       
-    
-    <script>
-        function validateForm() {
-            var studentId = <?php echo $studentId; ?>; // Get studentId from PHP
-            var formStudentId = parseInt(document.getElementById('studentId').value);
-            if (formStudentId !== studentId) {
-                alert("You're not allowed to modify studentId");
-                return false; // Prevent form submission
-            }
-            return true; // Allow form submission
-        }
-    </script> 
+    </div>     
 </body>
 </html>

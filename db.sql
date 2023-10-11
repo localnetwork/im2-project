@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Oct 11, 2023 at 11:52 AM
+-- Generation Time: Oct 11, 2023 at 03:32 PM
 -- Server version: 5.7.29
 -- PHP Version: 7.4.20
 
@@ -59,6 +59,25 @@ BEGIN
     INSERT INTO students (first_name, last_name)    VALUES (first_name, last_name);
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertUser` (IN `email` VARCHAR(255), IN `password` VARCHAR(255), IN `role` INT(255))  SQL SECURITY INVOKER
+BEGIN
+    DECLARE IsValidEmail BIT DEFAULT 0;
+    
+    -- Check if the email matches a valid email pattern using regular expressions
+    IF email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' THEN
+        SET IsValidEmail = 1;
+    END IF;
+
+    IF IsValidEmail = 1 THEN
+        -- The email is valid, you can proceed with the INSERT
+        INSERT INTO users (email, password, role) VALUES (email, password, role);
+    ELSE
+        -- The email is not valid, raise an error with a custom message
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Invalid email address';
+    END IF;
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateStudent` (IN `studentId` INT, IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
 BEGIN
     UPDATE students
@@ -85,8 +104,28 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`) VALUES
-(6, '11', '11'),
-(7, 'asdsad', 'asdasd');
+(12, 'asd', 'sd'),
+(13, 'dion', 'halcyon');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `password`, `role`) VALUES
+(3, 'diome.halcyonwebdesign@gmail.com', '123', 1);
 
 --
 -- Indexes for dumped tables
@@ -99,6 +138,14 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -106,7 +153,13 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

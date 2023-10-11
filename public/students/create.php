@@ -2,9 +2,9 @@
 <html lang="en">
    <head>
       <title>TEST </title>
-      <link rel="stylesheet" href="../styles/styles.css" />
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <?php
+         require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
+      ?>
    </head>
    <body>
       <div class="main-wrapper">
