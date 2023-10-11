@@ -52,19 +52,36 @@ class Student {
         }
     } 
 
-    public function editStudent($id, $first_name, $last_name) {
+    public function getStudent($studentId) {
         try {
-            $stmt = $this->db->prepare("call sp_editStudent(:id, :first_name, :last_name)");
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->bindParam(':first_name', $first_name, PDO::PARAM_VARCHAR);
-            $stmt->bindParam(':last_name', $last_name, PDO::PARAM_VARCHAR);
+            $stmt = $this->db->prepare("CALL sp_getStudent(:studentId)");
+            $stmt->bindParam(':studentId', $studentId, PDO::PARAM_INT);
+            $stmt->execute();
+            $student = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $student;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false; // Error
+        } 
+    }
+
+    public function updateStudent($studentId, $first_name, $last_name) {
+        try {
+            $stmt = $this->db->prepare("call sp_updateStudent(:studentId, :first_name, :last_name)");
+            $stmt->bindParam(':studentId', $studentId, PDO::PARAM_INT);
+            $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+            $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
             
             if ($stmt->execute()) {
-                return true; // Success
+                if ($stmt->rowCount() > 0) {
+                    return true; // Success, at least one row was updated
+                } else {
+                    return false; // No rows were updated
+                }
             } else {
-                return false; // Error
-            }
-        } catch (PDOException $e) {
+                return false; // Error during execution
+            } 
+        } catch (PDOException $e) { 
             echo "Error: " . $e->getMessage();
             return false; // Error
         }
