@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Update Student <?php 
-            require_once '../objects/student.php';  
+            require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');  
             $student = new Student();  
             $studentExist = $student->getStudent($_POST['studentId']);
             echo $studentExist['first_name']; 
@@ -16,7 +16,7 @@
     <div class="main-wrapper">
         <div class="container">
             <?php
-                require_once '../objects/student.php'; 
+                require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');  
 
                 if($_SERVER["REQUEST_METHOD"] === 'POST') {
                     $student = new Student(); 

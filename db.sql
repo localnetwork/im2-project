@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Oct 11, 2023 at 03:32 PM
+-- Generation Time: Oct 12, 2023 at 08:43 AM
 -- Server version: 5.7.29
 -- PHP Version: 7.4.20
 
@@ -63,16 +63,16 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertUser` (IN `email` VARCHAR(255), IN
 BEGIN
     DECLARE IsValidEmail BIT DEFAULT 0;
     
-    -- Check if the email matches a valid email pattern using regular expressions
-    IF email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$' THEN
+    
+    IF email REGEXP '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}$' THEN
         SET IsValidEmail = 1;
     END IF;
 
     IF IsValidEmail = 1 THEN
-        -- The email is valid, you can proceed with the INSERT
+        
         INSERT INTO users (email, password, role) VALUES (email, password, role);
     ELSE
-        -- The email is not valid, raise an error with a custom message
+        
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Invalid email address';
     END IF;
@@ -83,6 +83,26 @@ BEGIN
     UPDATE students
 	SET first_name = first_name, last_name = last_name
     WHERE id = studentId;
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_userLoginPost` (IN `p_email` VARCHAR(255), IN `p_password` VARCHAR(255))  SQL SECURITY INVOKER
+BEGIN
+    DECLARE v_user_id INT;
+    DECLARE v_hashed_password VARCHAR(255);
+
+    -- Find the user by email
+    SELECT id, password INTO v_user_id, v_hashed_password
+    FROM users
+    WHERE email = p_email;
+
+    -- Check if the user exists and the password is correct
+    IF v_user_id IS NOT NULL AND BINARY p_password = v_hashed_password THEN
+        -- Password is correct, set up a session and return success
+        SELECT 'Login successful' AS result;
+    ELSE
+        -- Invalid credentials, return an error message
+        SELECT 'Invalid email or password. Please try again.' AS result;
+    END IF;
 END$$
 
 DELIMITER ;
@@ -104,8 +124,10 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`) VALUES
-(12, 'asd', 'sd'),
-(13, 'dion', 'halcyon');
+(15, 'aaddd', 'aa222'),
+(16, 'aa', 'aaa'),
+(17, 'Diome Nike', 'Potot'),
+(18, 'aa', '21321');
 
 -- --------------------------------------------------------
 
@@ -125,7 +147,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `role`) VALUES
-(3, 'diome.halcyonwebdesign@gmail.com', '123', 1);
+(1, 'diome.halcyonwebdesign@gmail.com', '$2y$10$TjUjRBEO5x3sUX8eGovEzuRTYwpZofvjLsauI0iLq/0MbcWLPleBa', 1);
 
 --
 -- Indexes for dumped tables
@@ -153,13 +175,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

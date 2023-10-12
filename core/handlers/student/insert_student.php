@@ -1,6 +1,6 @@
 <?php
 
-    require_once '../objects/student.php'; 
+    require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');  
 
     if($_SERVER["REQUEST_METHOD"] === 'POST') {
         $student = new Student(); 

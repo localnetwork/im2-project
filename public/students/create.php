@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>TEST </title>
+      <title>Add a student</title>
       <?php
          require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
       ?>
@@ -9,11 +9,11 @@
    <body>
       <div class="main-wrapper">
          <div class="box">
-            <h2>Create a student</h2>
+            <h2>Add a student</h2>
             <div>
                 <a href="../students">Back to students</a>    
             </div>
-            <form action="../../core/handlers/insert_student.php" method="POST">
+            <form action="../../core/handlers/student/insert_student.php" method="POST">
                <div class="form-item">
                   <label for="first_name">First Name:</label>
                   <input type="text" id="first_name" name="first_name" required>

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/db.php'; 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
 
 function studentExists($firstName, $lastName) {
     $dbcon = new Database(); 

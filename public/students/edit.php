@@ -20,7 +20,7 @@
                     if($student !== false) {
                         echo '<h2> Edit student ' . $student['first_name'] . ' ' . $student['last_name'] . '</h2>';   
                         echo '<a href="/public/students/">Go back to students.</a>';   
-                        echo '<form action="../../core/handlers/update_student.php" method="POST" onsubmit="return validateForm()">'; 
+                        echo '<form action="../../core/handlers/student/update_student.php" method="POST" onsubmit="return validateForm()">'; 
                         
                         
                             echo '<div class="form-item" hidden>'; 
@@ -49,13 +49,13 @@
     
     <script>
         function validateForm() {
-            var studentId = <?php echo $studentId; ?>; // Get studentId from PHP
+            var studentId = <?php echo $studentId; ?>;
             var formStudentId = parseInt(document.getElementById('studentId').value);
             if (formStudentId !== studentId) {
                 alert("You're not allowed to modify studentId");
-                return false; // Prevent form submission
+                return false;
             }
-            return true; // Allow form submission
+            return true;
         }
     </script> 
 </body>
