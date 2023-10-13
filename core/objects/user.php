@@ -45,10 +45,10 @@
         }
 
         public function userLogin($email, $password) {
-            $sql = "call sp_userLoginPost(:email, :password)";
+            $sql = "call sp_userLoginPost(:p_email, :p_password)";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':email', $email); 
-            $stmt->bindParam(':password', $password); 
+            $stmt->bindParam(':p_email', $email); 
+            $stmt->bindParam(':p_password', $password); 
 
             try {
                 $stmt->execute(); 

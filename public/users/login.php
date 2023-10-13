@@ -13,8 +13,8 @@
             
             <form action="../../core/handlers/user/login_user.php" method="POST">
                <div class="form-item">
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" required>
+                  <label for="p_email">Email:</label>
+                  <input type="email" id="p_email" name="p_email" required>
                </div>
                <div class="form-item">
                   <label for="password">Password:</label>
