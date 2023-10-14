@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start or resume the session
+
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
 
@@ -7,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $user = new User();
 
     $conn = $conn->getConnection();
-    $email = $_POST['p_email']; 
+    $email = $_POST['p_email'];
     $password = $_POST['password'];
 
     // Query the database to retrieve the hashed password for a specific user
@@ -23,7 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         // Check if the provided password matches the hashed password
         if (password_verify($password, $hashedPassword)) {
             echo "Password matches.";
-            // You can perform further actions here, such as logging the user in.
+            // Set a session variable to indicate the user is logged in
+            $_SESSION['user_email'] = $email;
+            header("Location: /public/users/dashboard.php"); // Replace with the actual dashboard URL
+            exit(); // Make sure to exit to prevent further code execution
         } else {
             echo "Password does not match.";
         }
@@ -33,4 +38,4 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 } else {
     echo "Access denied.";
 }
-?> 
+?>
