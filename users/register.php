@@ -13,8 +13,11 @@
       <div class="main-wrapper">
          <div class="box">
             <h2>Create an account.</h2>
+            <?php
+               require_once '../templates/alerts/alerts.php';
+            ?>
             <a href="./login.php">Back to login</a>
-            <form action="../../core/handlers/user/insert_user.php" method="POST">
+            <form action="../../core/handlers/user/insert_user.php" method="POST" enctype="multipart/form-data">
                <div class="form-item">
                   <label for="first_name">First Name:</label>
                   <input type="text" id="first_name" name="first_name" required>

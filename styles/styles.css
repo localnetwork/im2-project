@@ -140,3 +140,12 @@ label {
 .alert .close::after {
   transform: rotate(-45deg);
 }
+
+.user-data {
+  display: flex;
+  justify-content: space-between;
+}
+.user-img {
+  border-radius: 100%;
+  object-fit: cover;
+}
