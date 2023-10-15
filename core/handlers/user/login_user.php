@@ -22,20 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
 
     if ($result !== false) {
         $hashedPassword = $result['password'];
-        // Check if the provided password matches the hashed password
         if (password_verify($password, $hashedPassword)) {
-            echo "Password matches.";
-            // Set a session variable to indicate the user is logged in
+            $_SESSION['messages']['success'][] = "You've successfully logged-in.";
             $_SESSION['user_email'] = $email;
-            header("Location: /public/users/dashboard.php"); // Replace with the actual dashboard URL
-            exit(); // Make sure to exit to prevent further code execution
+            header("Location: /users/dashboard.php");
+            exit();
         } else {
-            echo "Password does not match.";
+            $_SESSION['messages']['errors'][] = 'Unrecognized email or password. Please try again';
+            header("Location: /users/login.php");
         }
     } else {
-        echo 'User not found!';
+        $_SESSION['messages']['errors'][] = 'Unrecognized email or password. Please try again.';
+        header("Location: /users/login.php");
     }
 } else {
-    echo "Access denied.";
+    $_SESSION['messages']['errors'][] = 'You are not allowed to access.';
+    header("Location: /users/login.php");
 }
 ?>

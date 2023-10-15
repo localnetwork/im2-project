@@ -19,7 +19,7 @@ function studentExists($firstName, $lastName) {
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
         echo 'Student already exists!'; 
-        return true; // Assume an error occurred
+        return true;
     }
 } 
 ?>

@@ -6,11 +6,11 @@
         $user = new User(); 
         $password = $_POST['password'];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         $userInfo = array(
             'email' => $_POST['email'],
             'password' => $hashedPassword, 
-            'role' => $_POST['role']
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
         );
 
         $result = $user->createUser($userInfo); 

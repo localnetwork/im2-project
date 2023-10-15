@@ -9,7 +9,7 @@
             echo $studentExist['first_name']; 
         ?></title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
 </head>
 <body class="page-students">
@@ -49,7 +49,7 @@
             var studentId = <?php echo $studentId; ?>; // Get studentId from PHP
             var formStudentId = parseInt(document.getElementById('studentId').value);
             if (formStudentId !== studentId) {
-                alert("You're not allowed to modify studentId");
+                alert("You're not allowed to change Student ID");
                 return false; // Prevent form submission
             }
             return true; // Allow form submission

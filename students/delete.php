@@ -3,7 +3,7 @@
 <head>
     <title>Delete Student</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
 </head>
 <body class="page-students">

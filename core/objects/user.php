@@ -12,12 +12,12 @@
 
 
         public function createUser($user) {
-            $sql = "call sp_insertUser(:email, :password, :role)";
+            $sql = "call sp_insertUser(:first_name, :last_name, :email, :password)";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':first_name', $user['first_name']); 
+            $stmt->bindParam(':last_name', $user['last_name']); 
             $stmt->bindParam(':email', $user['email']); 
             $stmt->bindParam(':password', $user['password']); 
-            $stmt->bindParam(':role', $user['role']); 
-            
 
             if(userEmailValid($user['email'])) {
                 if(userExists($user['email'])) {
@@ -62,6 +62,19 @@
             }catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
                 return -1; 
+            } 
+        }
+        
+        public function getUserInfo($email) {
+            try {
+                $stmt = $this->db->prepare("CALL sp_getUserInfo(:email)");
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->execute();
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $user;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return false; // Error 
             } 
         }
     } 

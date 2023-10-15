@@ -3,7 +3,7 @@
 <head>
     <title>List of Students</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
 </head>
 <body class="page-students">
@@ -48,7 +48,7 @@
                                 echo "<div class='item-wrapper table-row-wrapper'>";
                                 echo "<div class='table-column fname'>{$row['first_name']}</div>";
                                 echo "<div class='table-column secondary lname'>{$row['last_name']}</div>";
-                                echo "<div class='table-column actions'><div class='edit'><a href='/public/students/edit.php?id={$row['id']}'>Edit</a></div><div class='delete'><a href='/public/students/delete.php?id={$row['id']}'>Delete</a></div></div>";
+                                echo "<div class='table-column actions'><div class='edit'><a href='/students/edit.php?id={$row['id']}'>Edit</a></div><div class='delete'><a href='/students/delete.php?id={$row['id']}'>Delete</a></div></div>";
                                 echo "</div>";
                                 echo "</div>";
                             }

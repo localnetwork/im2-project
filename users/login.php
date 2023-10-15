@@ -3,14 +3,21 @@
    <head>
       <title>Login</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/public/templates/head.php');
+         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+      ?>
+
+      <?php
+         require_once($_SERVER['DOCUMENT_ROOT'] . '/core/redirects/dashboard-redirect.php');
       ?>
    </head>
    <body>
       <div class="main-wrapper">
          <div class="box">
             <h2>Login your account.</h2>
-            
+            <?php
+               require_once '../templates/alerts/alerts.php';
+            ?>
+
             <form action="../../core/handlers/user/login_user.php" method="POST">
                <div class="form-item">
                   <label for="p_email">Email:</label>
@@ -22,6 +29,10 @@
                </div>
                <input class="btn" type="submit" value="Login">
             </form>
+
+            <div class="form-links">
+               <a href="./register.php">Don't have an account? Register now.</a>
+            </div>
          </div>
       </div>
    </body>
