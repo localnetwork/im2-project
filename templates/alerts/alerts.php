@@ -1,4 +1,8 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); 
+    }
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/cache/disable-cache.php');
     $alert_type = ''; 
 
     if (isset($_SESSION['messages']['errors']) && is_array($_SESSION['messages']['errors'])) {
@@ -14,9 +18,20 @@
             foreach ($_SESSION['messages'][$alert_type] as $message) {
                 echo '<div class="alert-item">' . $message . '</div>';
             }
-        echo '</div>'; 
+        echo '<span class="close" onclick="closeAlert()"></span> </div>'; 
         // Clear the error messages from the session
         $_SESSION['messages'][$alert_type] = array();
         unset($_SESSION['messages']);
     }
 ?>
+
+
+<script type="text/javascript">
+    function closeAlert() {
+        var element = document.querySelector('.alert');
+        console.log(element);
+        if(element) {
+            element.remove(); 
+        }
+    }
+</script>

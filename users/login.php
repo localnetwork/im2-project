@@ -17,7 +17,6 @@
             <?php
                require_once '../templates/alerts/alerts.php';
             ?>
-
             <form action="../../core/handlers/user/login_user.php" method="POST">
                <div class="form-item">
                   <label for="p_email">Email:</label>
@@ -33,6 +32,7 @@
             <div class="form-links">
                <a href="./register.php">Don't have an account? Register now.</a>
             </div>
+            
          </div>
       </div>
    </body>

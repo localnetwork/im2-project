@@ -16,6 +16,7 @@ body {
 }
 a {
   color: var(--primary);
+  text-decoration: none;
 }
 h2 {
   margin: 0 0 15px;
@@ -75,6 +76,9 @@ label {
   display: flex;
   font-weight: 700;
   border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 .table-row {
   border-bottom: 1px solid #ddd;
@@ -90,10 +94,11 @@ label {
 }
 
 .alert {
-  padding: 15px;
+  padding: 15px 40px 15px 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  position: relative;
 }
 
 .alert-success {
@@ -112,4 +117,26 @@ label {
   background-color: #fff3cd;
   border-color: #ffeeba;
   color: #856404;
+}
+
+.alert .close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+.alert .close::before,
+.alert .close::after {
+  content: "";
+  height: 15px;
+  width: 2px;
+  background: #333;
+  display: block;
+  position: absolute;
+}
+.alert .close::before {
+  transform: rotate(45deg);
+}
+.alert .close::after {
+  transform: rotate(-45deg);
 }

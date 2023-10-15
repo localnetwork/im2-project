@@ -12,7 +12,12 @@
             <h2>Add a student</h2>
             <div>
                 <a href="../students">Back to students</a>    
-            </div>
+            </div> 
+
+            <?php
+               session_start(); 
+               require_once '../templates/alerts/alerts.php';
+            ?>
             <form action="../../core/handlers/student/insert_student.php" method="POST">
                <div class="form-item">
                   <label for="first_name">First Name:</label>

@@ -13,7 +13,7 @@
       <div class="main-wrapper">
          <div class="box">
             <h2>Create an account.</h2>
-            
+            <a href="./login.php">Back to login</a>
             <form action="../../core/handlers/user/insert_user.php" method="POST">
                <div class="form-item">
                   <label for="first_name">First Name:</label>

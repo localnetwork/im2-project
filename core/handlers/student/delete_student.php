@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +15,7 @@
     <div class="main-wrapper">
         <div class="container">
             <?php
+                session_start(); 
                 require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');  
 
                 if($_SERVER["REQUEST_METHOD"] === 'POST') {
@@ -29,6 +29,8 @@
                         $result = $student->deleteStudent($studentId);
                         if ($result === true) {
                             echo 'Student deleted successfully';
+                            $_SESSION['messages']['success'][0] = 'Student deleted successfully';
+                            header("Location: /students");
                         }
                     }else {
                         echo 'Student not found!'; 

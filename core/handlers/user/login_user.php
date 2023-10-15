@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start or resume the session
+session_start(); 
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
@@ -7,6 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $conn = new Database();
     $user = new User();
+    $default_error = 'Unrecognized email or password. Please try again.'; 
 
     $conn = $conn->getConnection();
     $email = $_POST['p_email'];
@@ -23,20 +24,20 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     if ($result !== false) {
         $hashedPassword = $result['password'];
         if (password_verify($password, $hashedPassword)) {
-            $_SESSION['messages']['success'][] = "You've successfully logged-in.";
+            $_SESSION['messages']['success'][0] = "You've successfully logged-in.";
             $_SESSION['user_email'] = $email;
             header("Location: /users/dashboard.php");
             exit();
         } else {
-            $_SESSION['messages']['errors'][] = 'Unrecognized email or password. Please try again';
+            $_SESSION['messages']['errors'][0] = $default_error;
             header("Location: /users/login.php");
         }
     } else {
-        $_SESSION['messages']['errors'][] = 'Unrecognized email or password. Please try again.';
+        $_SESSION['messages']['errors'][0] = $default_error;
         header("Location: /users/login.php");
     }
 } else {
-    $_SESSION['messages']['errors'][] = 'You are not allowed to access.';
+    $_SESSION['messages']['errors'][0] = 'Error 403: You are not allowed to access.';
     header("Location: /users/login.php");
 }
 ?>

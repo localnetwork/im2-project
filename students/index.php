@@ -12,12 +12,19 @@
         <div class="head-actions">
             <div class="">
                 <h2>Students</h2>
+                
                 <p>A list of all the students.</p>
             </div>
             <div class="">
                 <a class="btn" href="./create.php">Add student</a>
             </div>
         </div>
+        <div>
+            <a href="../users/dashboard.php">Back to dashboard</a>
+        </div>
+        <?php
+            require_once '../templates/alerts/alerts.php';
+        ?>
         <div class="student-list">
             <div class="table">
                 <div class="table-header w-full">

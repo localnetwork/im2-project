@@ -1,4 +1,5 @@
 <?php
+    session_start(); 
 
     require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');  
 
@@ -13,7 +14,9 @@
         $result = $student->createStudent($studInfo); 
 
         if($result === 1) {
-            echo 'student created';
+            // echo 'student created';
+            $_SESSION['messages']['success'][0] = 'Successfully created student ' . $studInfo['fname'] . ' ' . $studInfo['lname'];
+            header("Location: /students");
         }elseif($result === 0) {
             echo 'student failed';
         }elseif($result === -2) {

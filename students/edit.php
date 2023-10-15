@@ -12,6 +12,7 @@
             <div class="test">
             <?php 
                 require_once '../core/objects/student.php'; 
+                require_once '../templates/alerts/alerts.php'; 
 
                 if (isset($_GET['id'])) {
                     $studentId = intval($_GET['id']); 
@@ -36,6 +37,9 @@
                                 <input class='btn' type='submit' value='Update record'>
                             </form>
                         ";
+                    }else {
+                        // Redirect if student not found.
+                        header("Location: ./index.php");
                     }
                     
                 }
