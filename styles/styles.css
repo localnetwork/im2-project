@@ -6,6 +6,9 @@
 * {
   box-sizing: border-box;
 }
+.relative {
+  position: relative;
+} 
 .secondary {
   color: var(--secondary);
 }
@@ -59,7 +62,7 @@ label {
 }
 .box {
   padding: 15px;
-  max-width: 700px;
+  max-width: 940px;
   margin: 0 auto;
   background-color: #fff;
 }
@@ -93,6 +96,10 @@ label {
   width: 33.33%;
 }
 
+
+/*
+ ** Alerts
+ */
 .alert {
   padding: 15px 40px 15px 15px;
   margin-bottom: 20px;
@@ -141,11 +148,104 @@ label {
   transform: rotate(-45deg);
 }
 
+
+
+
+/*
+ ** Cover
+ */
+.cover-img {
+  height: 350px;
+  object-fit: cover;
+  width: 100%; 
+  border-radius: 10px;
+}
+.cover-photo {
+  display: flex;
+  height: 100%;
+}
+
+/*
+ ** Edit
+ */
+.edit-cover {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+.edit-cover svg {
+  width: 20px;
+  height: 20px; 
+}
+.edit-cover a {
+  background-color: rgba(0,0,0,.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  border-radius: 6px;
+  gap: 10px;
+}
+
+/*
+ ** Navigation
+ */
+
+ .navigation h1 {
+  font-size: 36px;
+  margin: 0; 
+}
+
+/*
+ ** User
+ */
 .user-data {
   display: flex;
   justify-content: space-between;
 }
+.user-photo {
+  position: absolute;
+  bottom: -100px;
+  left: 40px;
+  padding: 4px;
+  border-radius: 100%;
+  background-color: #fff;
+}
 .user-img {
   border-radius: 100%;
   object-fit: cover;
+  border: 1px solid rgba(0,0,0,.4);   
+}
+.user-info {
+  padding: 15px 15px 15px 230px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  min-height: 120px; 
+}
+.user-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.user-action-btn {
+  padding: 10px 15px;
+  border-radius: 15px;
+  background:#D8DADF; 
+  color: #000; 
+  border-radius: 5px;
+  display: inline-block; 
+  font-weight: 700; 
+}
+.user-action-btn {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.user-action-btn::before {
+  content: '';
+  height: 15px;
+  width: 15px;
+  display: block;
+  background-image: url(../assets/icons/pen-black.svg);
+  background-size: 100%;
+  background-position: center;
 }
