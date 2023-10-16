@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Oct 15, 2023 at 12:31 PM
+-- Generation Time: Oct 16, 2023 at 08:02 AM
 -- Server version: 5.7.29
 -- PHP Version: 7.4.20
 
@@ -25,6 +25,12 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteMediaById` (IN `media_id` INT)  BEGIN
+
+DELETE FROM media WHERE mid = media_id;
+
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  BEGIN
     DECLARE student_count INT;
 
@@ -159,7 +165,37 @@ INSERT INTO `media` (`mid`, `filename`, `uri`, `filemime`, `created`) VALUES
 (1, '1697372181-unknown (53).png', '/storage/images/1697372181-unknown (53).png', 'png', '2023-10-15 12:16:21'),
 (2, '1697372214-unknown (53).png', '/storage/images/1697372214-unknown (53).png', 'png', '2023-10-15 12:16:54'),
 (3, '1697372930-unknown (53).png', '/storage/images/1697372930-unknown (53).png', 'png', '2023-10-15 12:28:50'),
-(4, '1697372984-15780688_1369878763054545_4385314309442176537_n-cropped.jpg', '/storage/images/1697372984-15780688_1369878763054545_4385314309442176537_n-cropped.jpg', 'jpg', '2023-10-15 12:29:44');
+(4, '1697372984-15780688_1369878763054545_4385314309442176537_n-cropped.jpg', '/storage/images/1697372984-15780688_1369878763054545_4385314309442176537_n-cropped.jpg', 'jpg', '2023-10-15 12:29:44'),
+(5, '1697435324-263653685_433820498269496_6433106433251749453_n (1).jpg', '/storage/images/1697435324-263653685_433820498269496_6433106433251749453_n (1).jpg', 'jpg', '2023-10-16 05:48:44'),
+(6, '1697435385-263653685_433820498269496_6433106433251749453_n (1).jpg', '/storage/images/1697435385-263653685_433820498269496_6433106433251749453_n (1).jpg', 'jpg', '2023-10-16 05:49:45'),
+(7, '1697435398-unknown_54_1 (1).png', '/storage/images/1697435398-unknown_54_1 (1).png', 'png', '2023-10-16 05:49:58'),
+(8, '1697435421-unknown_54_1 (1).png', '/storage/images/1697435421-unknown_54_1 (1).png', 'png', '2023-10-16 05:50:21'),
+(9, '1697435464-unknown (53).png', '/storage/images/1697435464-unknown (53).png', 'png', '2023-10-16 05:51:04'),
+(10, '1697435560-unknown (53).png', '/storage/images/1697435560-unknown (53).png', 'png', '2023-10-16 05:52:40'),
+(11, '1697435618-unknown_54_1 (1).png', '/storage/images/1697435618-unknown_54_1 (1).png', 'png', '2023-10-16 05:53:39'),
+(12, '1697435760-unknown_54_1 (1).png', '/storage/images/1697435760-unknown_54_1 (1).png', 'png', '2023-10-16 05:56:00'),
+(14, '1697436173-unknown (5).png', '/storage/images/1697436173-unknown (5).png', 'png', '2023-10-16 06:02:53'),
+(15, '1697436185-unknown (5).png', '/storage/images/1697436185-unknown (5).png', 'png', '2023-10-16 06:03:05'),
+(16, '1697436197-unknown (5).png', '/storage/images/1697436197-unknown (5).png', 'png', '2023-10-16 06:03:17'),
+(17, '1697436202-unknown (5).png', '/storage/images/1697436202-unknown (5).png', 'png', '2023-10-16 06:03:22'),
+(18, '1697436423-unknown (5).png', '/storage/images/1697436423-unknown (5).png', 'png', '2023-10-16 06:07:03'),
+(19, '1697436432-unknown (5).png', '/storage/images/1697436432-unknown (5).png', 'png', '2023-10-16 06:07:12'),
+(20, '1697436532-unknown (5).png', '/storage/images/1697436532-unknown (5).png', 'png', '2023-10-16 06:08:52'),
+(21, '1697436539-unknown (5).png', '/storage/images/1697436539-unknown (5).png', 'png', '2023-10-16 06:08:59'),
+(22, '1697436580-unknown (5).png', '/storage/images/1697436580-unknown (5).png', 'png', '2023-10-16 06:09:40'),
+(23, '1697436582-unknown (5).png', '/storage/images/1697436582-unknown (5).png', 'png', '2023-10-16 06:09:42'),
+(27, '1697436677-unknown (5).png', '/storage/images/1697436677-unknown (5).png', 'png', '2023-10-16 06:11:17'),
+(28, '1697436678-unknown (5).png', '/storage/images/1697436678-unknown (5).png', 'png', '2023-10-16 06:11:18'),
+(29, '1697436692-unknown (5).png', '/storage/images/1697436692-unknown (5).png', 'png', '2023-10-16 06:11:32'),
+(30, '1697436699-unknown (5).png', '/storage/images/1697436699-unknown (5).png', 'png', '2023-10-16 06:11:39'),
+(31, '1697436707-unknown (5).png', '/storage/images/1697436707-unknown (5).png', 'png', '2023-10-16 06:11:47'),
+(36, '1697436796-unknown (5).png', '/storage/images/1697436796-unknown (5).png', 'png', '2023-10-16 06:13:16'),
+(37, '1697436804-unknown (5).png', '/storage/images/1697436804-unknown (5).png', 'png', '2023-10-16 06:13:25'),
+(39, '1697436820-unknown (5).png', '/storage/images/1697436820-unknown (5).png', 'png', '2023-10-16 06:13:40'),
+(45, '1697436942-screenshot.png', '/storage/images/1697436942-screenshot.png', 'png', '2023-10-16 06:15:42'),
+(46, '1697436992-screenshot.png', '/storage/images/1697436992-screenshot.png', 'png', '2023-10-16 06:16:32'),
+(47, '1697437083-unknown.png', '/storage/images/1697437083-unknown.png', 'png', '2023-10-16 06:18:03'),
+(51, '1697437291-unknown (65).png', '/storage/images/1697437291-unknown (65).png', 'png', '2023-10-16 06:21:31');
 
 -- --------------------------------------------------------
 
@@ -215,7 +251,19 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `crea
 (69, 'Diome Nike', 'Potot', 'd@d.com', '$2y$10$3O2Rrc/2texiZTPsgNU3Wu5F7lP2UP10MDtohMj9DXsR9C8vhHzJO', '2023-10-15 12:16:21', 1, NULL),
 (70, 'dion', 'halcyon', 'a@a.com', '$2y$10$QhWIMwp0sQ2uRV9xoWnf7.miwxBl0QFs0EIvxSSNH6b3v03UDbxzq', '2023-10-15 12:16:54', 1, 1),
 (71, 'User', 'One', 'user1@user.com', '$2y$10$wU0PAsFZam2/FUiAjo5xHuRfiHQQPcXPDdDv6zHKen3CWwktXUckO', '2023-10-15 12:28:50', 1, 2),
-(72, 'User', 'Two', 'user2@user.com', '$2y$10$cc6Mm0yAiyUv76yjVH9dh.HvMmx/04Oc0MlJfPexmuOjrPhfqCUYG', '2023-10-15 12:29:44', 1, 3);
+(72, 'User', 'Two', 'user2@user.com', '$2y$10$cc6Mm0yAiyUv76yjVH9dh.HvMmx/04Oc0MlJfPexmuOjrPhfqCUYG', '2023-10-15 12:29:44', 1, 3),
+(73, 'bro1@test.com', 'bro1@test.com', 'bro1@test.com', '$2y$10$o9HQAHpsShF2BnMZLllLP.anzvrV1Lvgado1lsyTCqXAem7BEijyy', '2023-10-16 05:49:45', 1, 1),
+(74, 'bro2@test.com', 'bro2@test.com', 'bro2@test.com', '$2y$10$t2uAkAXf7gFzi.uWhFgmQObOIx0k5M350AXEOKE0xT/yIc2GRT7gy', '2023-10-16 05:49:58', 1, 1),
+(75, 'br2o2@test.com', 'br2o2@test.com', 'br2o2@test.com', '$2y$10$mrhyVgdtMjaM3GT4gCFqAOPvkMurrT73i1zs1xcNcICJykbKJeKRy', '2023-10-16 05:50:21', 1, 1),
+(76, '1br2o2@test.com', '1br2o2@test.com', '1br2o2@test.com', '$2y$10$FkZuRfIyfi4koP23cBSywegrVKjSIj/ySWf2yrc7DKBa0Fl5Zlxfq', '2023-10-16 05:51:04', 1, 1),
+(77, '11br2o2@test.com', '11br2o2@test.com', '11br2o2@test.com', '$2y$10$ObMf3l5WJmaw6eT91Zy/v.1mAJi6EOMbC5cGrfenFQW0/GvD3hYim', '2023-10-16 05:52:40', 1, 1),
+(78, '11br222o2@test.com', '11br222o2@test.com', '11br222o2@test.com', '$2y$10$NjDPHXEMrF2ltLsLUu5JpeAxM.s2iTBWsQKSqlIcWLX84GUHjTtYW', '2023-10-16 05:53:39', 1, 1),
+(79, '11b2r222o2@test.com', '11b2r222o2@test.com', '11b2r222o2@test.com', '$2y$10$mrKu7fojjqIbRLyBLLIjReR1fHltARGVeKRYgOSdVQOSDpfCOXoxq', '2023-10-16 05:56:00', 1, 1),
+(80, '1111b2r222o2@test.com', '1111b2r222o2@test.com', '1111b2r222o2@test.com', '$2y$10$8P6DFKKpBc1eKohFSSxFkemQalqz62pDoJCwYDkAYntOATF23QYle', '2023-10-16 06:02:53', 1, 1),
+(81, 'amos@amos.com', 'amos@amos.com', 'amos@amos.com', '$2y$10$pBM3GILTDxmzXHG0xsnC/O985vL.WgwOlTNgj2ZDrI9brLxBnIUgC', '2023-10-16 06:15:42', 1, 1),
+(82, '11amos@amos.com', '11amos@amos.com', '11amos@amos.com', '$2y$10$O8qsNCZhAivIXc8i5CyhWeRn3DdGbV5eIJMrUmKC6QrwavL3kv16y', '2023-10-16 06:16:32', 1, 46),
+(83, 'Diome Nike', 'Potot', 'system.administrator@staging.saas.halcyondigitalhost.com', '$2y$10$zZOmgmxh7gYuzj4zbJz1r.9jVPPcd.bNljwfnfoT4fkwoWUfMUX6a', '2023-10-16 06:18:03', 1, 47),
+(84, 'Diome Nike', 'Potot', '1@1.casd', '$2y$10$45x3Nrdo4n7RN0Y5BWk0SejL2XiAqYxnFai8YAHA1hbK61DXa9gNa', '2023-10-16 06:21:31', 1, 51);
 
 --
 -- Indexes for dumped tables
@@ -251,7 +299,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -263,7 +311,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- Constraints for dumped tables

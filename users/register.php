@@ -15,6 +15,8 @@
             <h2>Create an account.</h2>
             <?php
                require_once '../templates/alerts/alerts.php';
+
+               var_dump($_POST); 
             ?>
             <a href="./login.php">Back to login</a>
             <form action="../../core/handlers/user/insert_user.php" method="POST" enctype="multipart/form-data">

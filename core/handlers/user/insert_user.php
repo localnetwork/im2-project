@@ -15,10 +15,10 @@
             'first_name' => $_POST['first_name'],
             'last_name' => $_POST['last_name'],
         );
-        $filename = $_SERVER['REQUEST_TIME'] . '-' . $_FILES['profile_picture']['name']; 
-        $fileFormat = pathinfo($filename, PATHINFO_EXTENSION);
+        // $filename = $_SERVER['REQUEST_TIME'] . '-' . $_FILES['profile_picture']['name']; 
+        // $fileFormat = pathinfo($filename, PATHINFO_EXTENSION);
 
-        $uri = "../../../storage/images/{$filename}";
+        // $uri = "../../../storage/images/{$filename}";
         // $uploadOk = 1; 
 
         // if(isset($_POST)) {
@@ -63,7 +63,7 @@
 
 
         $result = $user->createUser($userInfo); 
-
+        
         
         if($result === 1) {
             $_SESSION['messages']['success'][0] = 'Your account has been created. Please login.';
@@ -73,6 +73,16 @@
         }elseif($result === -2) {
             $_SESSION['messages']['errors'][0] = 'This email already exists!';
             header("Location: /users/register.php");
+        }elseif($result === -3) {
+            $_SESSION['messages']['errors'][0] = 'Please provide a valid email.';
+            header("Location: /users/register.php");
+        }
+
+
+        if($result !== 1) {
+            $_SESSION['form_values']['first_name'] = $_POST['first_name'];
+            $_SESSION['form_values']['last_name'] = $_POST['last_name'];
+            $_SESSION['form_values']['email'] = $_POST['email'];
         }
     }
 
