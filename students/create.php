@@ -15,7 +15,6 @@
             </div> 
 
             <?php
-               session_start(); 
                require_once '../templates/alerts/alerts.php';
             ?>
             <form action="../../core/handlers/student/insert_student.php" method="POST">

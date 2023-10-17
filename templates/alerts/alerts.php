@@ -27,11 +27,18 @@
 
 
 <script type="text/javascript">
+    var element = document.querySelector('.alert');
+    console.log(element); 
     function closeAlert() {
-        var element = document.querySelector('.alert');
         console.log(element);
         if(element) {
             element.remove(); 
         }
     }
+    
+    function removeAlert() { 
+        closeAlert(); 
+    }
+
+    setTimeout(removeAlert, 10000);
 </script>

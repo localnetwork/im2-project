@@ -14,18 +14,20 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $password = $_POST['password'];
 
     // Query the database to retrieve the hashed password for a specific user
-    $query = "SELECT password FROM users WHERE email = :email";
+    $query = "SELECT email, password,profile_picture FROM users WHERE email = :email";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
     if ($result !== false) {
         $hashedPassword = $result['password'];
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['messages']['success'][0] = "You've successfully logged-in.";
-            $_SESSION['user_email'] = $email;
+            $_SESSION['user'] = $result;
+            $_SESSION['user_email'] = $result['email'];
             header("Location: /users/dashboard.php");
             exit();
         } else {

@@ -38,7 +38,7 @@
 
                             $_SESSION['messages']['errors'][0] = "Can't update student with the same value";
                             header("Location: /students/edit.php?id=" . $studentId);
-                        }
+                        } 
                     }else {
                         echo 'Student not found!'; 
                     }

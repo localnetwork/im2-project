@@ -4,12 +4,14 @@
         public function __construct() {
             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/validators/userValidator.php');
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/service/media.php');
             $dbcon = new Database(); 
     
             $this->db = $dbcon->getConnection(); 
     
         } 
 
+        
 
         public function createUser($user) {
 
@@ -165,6 +167,61 @@
                 echo "Error: " . $e->getMessage();
                 return false; // Error 
             } 
+        }
+
+
+        public function updateUser($email, $first_name, $last_name, $profile_picture) {
+            try {              
+                $stmt = $this->db->prepare("call sp_userUpdate(:email, :first_name, :last_name, :profile_picture)");
+                $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+                $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+                var_dump($_SESSION['user']);  
+                if(isset($profile_picture)) {
+                    $media_id = insertMedia($profile_picture, $this->db); 
+                    $stmt->bindParam(':profile_picture', $media_id, PDO::PARAM_STR);
+                }else {
+                    $stmt->bindParam(':profile_picture', $userInfo['profile_picture'], PDO::PARAM_STR);
+                }
+                var_dump('11111111111'); 
+
+                
+
+                $stmt->execute(); 
+
+                try {
+                    if(isset($stmt)) {  
+                        // return 1; 
+
+                        if(isset($_POST['profile_picture'])) {
+                            
+                        }
+                    }else {
+                        throw new Exception(0);
+                    }
+                }catch(Exception $e) {
+                    $stmt = $this->db->prepare("call sp_deleteMediaById(:mid)");
+                    $stmt->bindParam(':mid', $media_id, PDO::PARAM_INT);
+                    $stmt->execute();  
+                    return intval($e->getMessage()); 
+                }
+                $stmt->close();
+                $conn->close();
+
+                // if ($stmt->execute()) {
+                //     if ($stmt->rowCount() > 0) {
+                //         return true; // Success, at least one row was updated
+                //     } else {
+                //         return false; // No rows were updated
+                //     }
+                // } else {
+                //     return false; // Error during execution
+                // }  
+                
+            } catch (PDOException $e) { 
+                echo "Error: " . $e->getMessage();
+                return false; // Error
+            }
         }
         
     } 
