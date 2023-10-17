@@ -20,11 +20,10 @@
                 require_once '../templates/alerts/alerts.php';
 
 
-                if (isset($_SESSION['user_email'])) {
-                    $user_email = $_SESSION['user_email'];
+                if (isset($_SESSION['user'])) {
+                    $user_email = $_SESSION['user']['email'];
                     $user = new User();
-                    $userInfo = $user->getUserInfo($_SESSION['user_email']);
-                    
+                    $userInfo = $user->getUserInfo($user_email);
                     require_once '../templates/navigation/navigation.php';
                     if(isset($userInfo['email'])) {
                         echo "
@@ -38,7 +37,7 @@
                         </div>";
                     }else {
                         // Callback if the user is muanually deleted in the database. 
-                        unset($_SESSION['user_email']); // Clear user session. 
+                        // unset($_SESSION['user']); // Clear user session. 
                     } 
                 }else {
                     // Redirect to login page if not logged in.

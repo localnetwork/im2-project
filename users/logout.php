@@ -3,7 +3,7 @@
 // Start or resume the session
 session_start();
 
-if (isset($_SESSION['user_email'])) {
+if (isset($_SESSION['user'])) {
     $_SESSION = array();
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();

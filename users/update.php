@@ -25,7 +25,7 @@
                 }
 
 
-                $userInfo = $user->getUserInfo($_SESSION['user_email']);
+                $userInfo = $user->getUserInfo($_SESSION['user']['email']);
                 echo "
                     <form action='../../core/handlers/user/update_user.php' method='POST' enctype='multipart/form-data'>
                     <div class='form-item'>
@@ -50,14 +50,16 @@
                     </div>
                     <div class='form-item'>
                     <label for='profile_picture'>Profile Picture:</label>
-                        <div class='' style='margin: 10px 0;'>
-                            <img src='{$media_img['uri']}' width='50' height='50' />
-                        </div>
+                        
                         <input type='file' id='profile_picture' name='profile_picture'>
                     </div>
                     <input class='btn bg-secondary' type='submit' value='Update Account'>
                 </form>
                 ";
+
+                // <div class='' style='margin: 10px 0;'>
+                        //     <img src='{$media_img['uri']}' width='50' height='50' />
+                        // </div>
             ?>
          </div>
       </div>

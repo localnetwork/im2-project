@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['messages']['success'][0] = "You've successfully logged-in.";
             $_SESSION['user'] = $result;
-            $_SESSION['user_email'] = $result['email'];
             header("Location: /users/dashboard.php");
             exit();
         } else {

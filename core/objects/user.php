@@ -1,5 +1,4 @@
 <?php
-
     class User {
         public function __construct() {
             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
@@ -131,10 +130,8 @@
                 $stmt->execute(); 
                 if(isset($stmt)) {
                     return 1; 
-                    echo '1'; 
                 }else {
                     return 0; 
-                    echo '0'; 
                 }
             }catch(PDOException $e) {
                 $this->db->rollback();
@@ -176,37 +173,28 @@
                 $stmt->bindParam(':email', $email, PDO::PARAM_STR);
                 $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
-                var_dump($_SESSION['user']);  
-                if(isset($profile_picture)) {
+
+
+                if(isset($profile_picture['name'])) {
                     $media_id = insertMedia($profile_picture, $this->db); 
-                    $stmt->bindParam(':profile_picture', $media_id, PDO::PARAM_STR);
+                    $stmt->bindParam(':profile_picture', $media_id, PDO::PARAM_STR); 
                 }else {
-                    $stmt->bindParam(':profile_picture', $userInfo['profile_picture'], PDO::PARAM_STR);
+                    $stmt->bindParam(':profile_picture', $_SESSION['user']['profile_picture'], PDO::PARAM_STR);
                 }
-                var_dump('11111111111'); 
-
+ 
                 
-
                 $stmt->execute(); 
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 try {
-                    if(isset($stmt)) {  
-                        // return 1; 
 
-                        if(isset($_POST['profile_picture'])) {
-                            
-                        }
-                    }else {
-                        throw new Exception(0);
-                    }
                 }catch(Exception $e) {
                     $stmt = $this->db->prepare("call sp_deleteMediaById(:mid)");
                     $stmt->bindParam(':mid', $media_id, PDO::PARAM_INT);
                     $stmt->execute();  
                     return intval($e->getMessage()); 
                 }
-                $stmt->close();
-                $conn->close();
+
 
                 // if ($stmt->execute()) {
                 //     if ($stmt->rowCount() > 0) {
@@ -222,6 +210,9 @@
                 echo "Error: " . $e->getMessage();
                 return false; // Error
             }
+
+            // $stmt->close();
+            // $conn->close();
         }
         
     } 

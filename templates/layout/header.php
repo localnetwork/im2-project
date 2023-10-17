@@ -1,13 +1,13 @@
 <?php
     require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
     
-    if (isset($_SESSION['user_email'])) {
-        $user_email = $_SESSION['user_email'];
+    if (isset($_SESSION['user'])) {
+        $user_email = $_SESSION['user']['email'];
         $user = new User();
-        $userInfo = $user->getUserInfo($_SESSION['user_email']);
+        $userInfo = $user->getUserInfo($user_email);
 
         if(isset($userInfo['profile_picture'])) {
-            $media_id = $userInfo['profile_picture']; 
+            $media_id = intval($userInfo['profile_picture']); 
             $media = $user->getMediaInfo($media_id); 
             $media_image = $media['uri']; 
         }else {

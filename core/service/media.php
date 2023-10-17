@@ -27,13 +27,13 @@ function insertMedia($profile_picture, $db) {
     $uploadOk = 1; 
    
     if(isset($_POST)) {
-        $check = getimagesize($profile_picture["tmp_name"]);
+        $check = getimagesize($_FILES['profile_picture']["tmp_name"]);
         if($check !== false) {
-        $uploadOk = 1;
+            $uploadOk = 1;
         } else {
-        $uploadOk = 0;
+            $uploadOk = 0;
         }
-    }
+    } 
     
     // Check if file already exists
     if (file_exists($uri)) {
