@@ -7,11 +7,15 @@
     ?>
 </head>
 <body class="page-students">
+<?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+        ?> 
     <div class="main-wrapper">
         <div class="container">
+        <h1 class="page-header">Students</h1>
+
         <div class="head-actions">
             <div class="">
-                <h2>Students</h2>
                 
                 <p>A list of all the students.</p>
             </div>

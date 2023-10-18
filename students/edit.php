@@ -7,6 +7,9 @@
     ?>
 </head>
 <body class="page-students">
+<?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+        ?> 
     <div class="main-wrapper">
         <div class="container">
             <div class="test">
@@ -20,7 +23,7 @@
                     $student = $student->getStudent($studentId); 
                     if($student !== false) {
                         echo "
-                            <h2>Edit student {$student['first_name']} {$student['last_name']}</h2>
+                            <h1 class='page-header'> Edit student {$student['first_name']} {$student['last_name']}</h1>
                             <a href='/students/'>Go back to students.</a>
                             <form action='../core/handlers/student/update_student.php' method='POST' onsubmit='return validateForm()'>
                                 <div class='form-item' hidden>

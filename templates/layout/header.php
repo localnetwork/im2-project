@@ -5,7 +5,6 @@
         $user_email = $_SESSION['user']['email'];
         $user = new User();
         $userInfo = $user->getUserInfo($user_email);
-
         if(isset($userInfo['profile_picture'])) {
             $media_id = intval($userInfo['profile_picture']); 
             $media = $user->getMediaInfo($media_id); 

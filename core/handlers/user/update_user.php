@@ -13,7 +13,14 @@
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-
     $result = $user->updateUser($_POST['email'], $_POST['first_name'], $_POST['last_name'], $_FILES['profile_picture']);
+    var_dump($result); 
+    if($result === 1) {
+        $_SESSION['messages']['success'][0] = 'Your account has successfully updated.';
+        header("Location: /users/update.php");
+    }else {
+        $_SESSION['messages']['errors'][0] = "There's a problem updating your account. Please try again.";
+        header("Location: /users/update.php");
+    }
 
 ?>

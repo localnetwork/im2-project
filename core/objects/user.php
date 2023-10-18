@@ -174,37 +174,29 @@
                 $stmt->bindParam(':first_name', $first_name, PDO::PARAM_STR);
                 $stmt->bindParam(':last_name', $last_name, PDO::PARAM_STR);
 
+                if(isset($profile_picture['name']) && strlen($profile_picture['name']) > 0) {
 
-                if(isset($profile_picture['name'])) {
+                    
+
                     $media_id = insertMedia($profile_picture, $this->db); 
+ 
                     $stmt->bindParam(':profile_picture', $media_id, PDO::PARAM_STR); 
+                    unset($_SESSION['user']['profile_picture']);  
+                    $_SESSION['user']['profile_picture'] = $media_id; 
+                    $stmt->execute(); 
+
+                    // if($_SESSION['user']['profile_picture']) {
+                    //     deleteMedia($_SESSION['user']['profile_picture'], $this->db);
+                    // } 
+                    
                 }else {
                     $stmt->bindParam(':profile_picture', $_SESSION['user']['profile_picture'], PDO::PARAM_STR);
-                }
- 
-                
-                $stmt->execute(); 
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $stmt->execute(); 
+                } 
+                $user = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-                try {
-
-                }catch(Exception $e) {
-                    $stmt = $this->db->prepare("call sp_deleteMediaById(:mid)");
-                    $stmt->bindParam(':mid', $media_id, PDO::PARAM_INT);
-                    $stmt->execute();  
-                    return intval($e->getMessage()); 
-                }
-
-
-                // if ($stmt->execute()) {
-                //     if ($stmt->rowCount() > 0) {
-                //         return true; // Success, at least one row was updated
-                //     } else {
-                //         return false; // No rows were updated
-                //     }
-                // } else {
-                //     return false; // Error during execution
-                // }  
+                var_dump($_SESSION['user']['profile_picture']); 
+                return 1; 
                 
             } catch (PDOException $e) { 
                 echo "Error: " . $e->getMessage();

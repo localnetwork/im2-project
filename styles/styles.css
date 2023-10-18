@@ -31,7 +31,10 @@ h2 {
   min-height: 100vh;
 }
 label {
-  margin: 0 0 5px;
+  margin: 0 0 10px;
+  display: block;
+  color: #606770;
+  font-weight: 700;
 }
 .form-item input {
   width: 100%;
@@ -120,6 +123,9 @@ label {
   justify-content: space-between;
   padding: 5px 15px;
   align-items: center;
+  z-index: 200;
+  background-color: #fff;
+  margin: 0 0 15px;
 }
 .header::after {
   content: "";
@@ -193,6 +199,13 @@ label {
   background-color: #f3f3f3;
 }
 
+.page-header {
+  margin: 0 0 30px;
+  font-size: 40px;
+  color: #1c1e21;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
 /*
  ** Alerts
  */

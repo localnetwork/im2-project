@@ -7,6 +7,9 @@
       ?>
    </head>
    <body>
+   <?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+        ?> 
       <div class="main-wrapper">
          <div class="box">
             <h2>Add a student</h2>

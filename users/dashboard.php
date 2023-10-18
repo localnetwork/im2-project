@@ -37,7 +37,7 @@
                         </div>";
                     }else {
                         // Callback if the user is muanually deleted in the database. 
-                        // unset($_SESSION['user']); // Clear user session. 
+                        unset($_SESSION['user']); // Clear user session. 
                     } 
                 }else {
                     // Redirect to login page if not logged in.

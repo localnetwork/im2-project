@@ -7,6 +7,9 @@
     ?>
 </head>
 <body class="page-students">
+<?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+        ?> 
     <div class="main-wrapper">
         <div class="container">
             <?php 
@@ -16,7 +19,7 @@
 
                 if($studentExist !== false) {
                     $studentId = isset($_GET['id']) ? intval($_GET['id']) : '';
-                    echo '<h2>Are you sure you want to delete student' . ' ' . $studentExist['first_name'] . " " . $studentExist['last_name'] . '?</h2>';  
+                    echo '<h1 class="page-header">Are you sure you want to delete student' . ' ' . $studentExist['first_name'] . " " . $studentExist['last_name'] . '?</h1>';  
                     echo '<form action="../../core/handlers/student/delete_student.php" method="POST" onsubmit="return validateForm()">'; 
                     echo '<div class="form-item" hidden>';
                     echo '<input hidden type="hidden" id="studentId" name="studentId" value="' . $studentId . '" required>';

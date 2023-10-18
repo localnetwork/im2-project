@@ -2,12 +2,7 @@
 
 function insertMedia($profile_picture, $db) {
 
-    $getLastMedia = "call sp_getLastMedia()";
-    $getLastMedia = $db->prepare($getLastMedia); 
-    $getLastMedia->execute(); 
-
-    $getLastMedia = $getLastMedia->fetchAll(PDO::FETCH_ASSOC);
-
+   
 
     $sql = "call sp_insertMedia(:filename, :uri,:filemime)";
 
@@ -19,8 +14,9 @@ function insertMedia($profile_picture, $db) {
     $stmt->bindParam(':filename', $filename);
     $stmt->bindParam(':filemime', $fileFormat);
     $stmt->bindParam(':uri', $path); 
-   
-    $media_id = $getLastMedia[0]['mid'];
+
+
+    
    
     $uri = $_SERVER['DOCUMENT_ROOT'] . "/storage/images/{$filename}";
    
@@ -59,12 +55,27 @@ function insertMedia($profile_picture, $db) {
         } else {
     }
     }
-   
     $stmt->execute();
+
+
+    $getLastMedia = "call sp_getLastMedia()";
+    $getLastMedia = $db->prepare($getLastMedia); 
+    $getLastMedia->execute(); 
+
+    $getLastMedia = $getLastMedia->fetchAll(PDO::FETCH_ASSOC);
+
+   
+    $media_id = $getLastMedia[0]['mid'];
+ 
     return $media_id;  
 }
 
+function deleteMedia($profile_picture, $db) {
 
+    $stmt = $db->prepare("call sp_deleteMediaById(:mid)");
+    $stmt->bindParam(':mid', $profile_picture, PDO::PARAM_INT);
+    $stmt->execute();  
 
-
+    return $profile_picture; 
+}
 ?>
