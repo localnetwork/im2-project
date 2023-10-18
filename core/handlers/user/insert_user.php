@@ -10,6 +10,7 @@
         $password = $_POST['password'];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $userInfo = array(
+            'user_role_id' => $_POST['user_role_id'],
             'email' => $_POST['email'],
             'password' => $hashedPassword, 
             'first_name' => $_POST['first_name'],

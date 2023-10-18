@@ -8,12 +8,12 @@
     require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
 </head>
-<body>
+<body class="page-user">
     <div class="main-wrapper">
         <?php
             require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
         ?>  
-        <div class="box">
+        <div class="">
             <?php
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
 
@@ -26,13 +26,35 @@
                     $userInfo = $user->getUserInfo($user_email);
                     require_once '../templates/navigation/navigation.php';
                     if(isset($userInfo['email'])) {
-                        echo "
-                        <small>Date joined: {$userInfo['created']}</small>"; 
+                        // echo "
+                        // <small>Date joined: {$userInfo['created']}</small>"; 
                         
-                        echo " <div class='test'>
+                        echo " <div class='user-taskbar container'>
                                 <h2>What do you want to do?</h2>
                                 
-                                <a href='../students'>Manage Students</a>
+                                <div class='row'>
+                                    <div class='task card'>
+                                        <a href='../students'>
+                                            <h3>Manage Students</h3>
+                                            <img src='../assets/images/students.svg'>
+                                        </a>
+                                    </div>
+                                    <div class='task card'>
+                                        <a href='../subjects'>
+                                            <h3>Manage Subjects</h3>
+                                            <img src='../assets/images/subjects.svg'>
+                                        </a>
+                                    </div>
+
+                                    <div class='task card'>
+                                        <a href='../assignments'>
+                                            <h3>Manage Assignments</h3>
+                                            <img src='../assets/images/assignments.svg'>
+                                        </a>
+                                    </div>
+
+                                    
+                                </div>
                             </div>
                         </div>";
                     }else {

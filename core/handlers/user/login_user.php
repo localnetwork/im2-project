@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $password = $_POST['password'];
 
     // Query the database to retrieve the hashed password for a specific user
-    $query = "SELECT email, password,profile_picture FROM users WHERE email = :email";
+    $query = "SELECT id,email, password,profile_picture FROM users WHERE email = :email";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();

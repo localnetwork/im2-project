@@ -76,8 +76,9 @@
             $getLastMedia = $getLastMedia->fetchAll(PDO::FETCH_ASSOC);
 
             $formatted_now = str_replace(' ', '#', strtolower(date('Y-m-d H:i:s')));
-            $sql = "call sp_insertUser(:first_name, :last_name, :email, :password, :profile_picture)";
+            $sql = "call sp_insertUser(:user_role_id, :first_name, :last_name, :email, :password, :profile_picture)";
             $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':user_role_id', $user['user_role_id']); 
             $stmt->bindParam(':first_name', $user['first_name']); 
             $stmt->bindParam(':last_name', $user['last_name']); 
             $stmt->bindParam(':email', $user['email']); 
@@ -160,6 +161,19 @@
                 $stmt->execute();
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $user;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return false; // Error 
+            } 
+        }
+
+        public function getRole($user_role_id) {
+            try {
+                $stmt = $this->db->prepare("call sp_getRole(:role_id)");
+                $stmt->bindParam(':role_id', $user_role_id, PDO::PARAM_STR);
+                $stmt->execute();
+                $role = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $role;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
                 return false; // Error 
