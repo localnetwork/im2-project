@@ -32,22 +32,25 @@
                         $students = $student->getStudents(); 
 
                        
-                        $test = new studentSubjectAssociation();  
-                        
-                           $test = $test->getStudentsInSubject($_GET['id']);
-                     
+                        $studentsInSubject = new studentSubjectAssociation();  
+                        $studentsInSubject = $studentsInSubject->getStudentsInSubject($_GET['id']);
+                        $SidsinSubjects = array_column($studentsInSubject, 'student_id');
 
                         foreach ($students as $student) {
-                           // $isChecked = in_array($student['id'], $ids) ? 'checked="checked"' : '';
-                           $isChecked = ''; 
                            
-
+                           $isChecked = in_array($student['id'], $SidsinSubjects) ? 'checked="checked"' : '';
+                           $added = ''; 
+                           $disabled = ''; 
+                           if($isChecked == 'checked="checked"') {
+                              $added = '<small style="color: #a5a5a5; margin-left: 5px;">(Already associated)</small>'; 
+                              $disabled = 'disabled'; 
+                           }
 
                             echo "
                             <div class='item'>
                               <input type='checkbox' name='{$student['id']}' id='{$student['id']}' value='{$student['id']}' {$isChecked} />
                            ";
-                            echo "<label for='{$student['id']}'>{$student['first_name']} {$student['last_name']}</label></div>";
+                            echo "<label for='{$student['id']}'>{$student['first_name']} {$student['last_name']}{$added}</label></div>";
                         }
                     ?>
                 </div>

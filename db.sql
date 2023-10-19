@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Oct 18, 2023 at 04:23 PM
+-- Generation Time: Oct 19, 2023 at 12:14 PM
 -- Server version: 5.7.29
 -- PHP Version: 7.4.20
 
@@ -47,6 +47,12 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  BEG
     END IF;
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudentsToSubject` (IN `sub_id` INT)  BEGIN
+
+DELETE FROM students_assigned_subjects WHERE subject_id = sub_id; 
+
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  BEGIN
     DECLARE subject_count INT;
 
@@ -61,6 +67,12 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  BEGIN
     ELSE
         SELECT 'Subject not found. No deletion performed.' AS result;
     END IF;
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignment` (IN `ass_id` INT)  BEGIN
+
+SELECT * from assignments WHERE assignment_id = ass_id; 
+
 END$$
 
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignments` ()  BEGIN
@@ -114,6 +126,12 @@ SELECT * from students;
 
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentsInSubject` (IN `sub_id` INT)  BEGIN
+
+SELECT * from students_assigned_subjects WHERE subject_id = sub_id;
+
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_getSubject` (IN `sub_id` INT)  BEGIN
 
 SELECT * from subjects WHERE subject_id = sub_id; 
@@ -153,6 +171,41 @@ BEGIN
     INSERT INTO students (first_name, last_name)    VALUES (first_name, last_name);
 END$$
 
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertStudentsToSubject` (IN `sub_id` INT, IN `student_ids` VARCHAR(1000))  SQL SECURITY INVOKER
+BEGIN
+    DECLARE student_id INT;
+    DECLARE studentList VARCHAR(1000);
+    DECLARE commaPosition INT;
+    DECLARE done INT DEFAULT 0;
+
+    
+    SET studentList = student_ids;
+    SET commaPosition = LOCATE(',', studentList);
+
+    WHILE commaPosition > 0 DO
+        
+        SET student_id = CAST(SUBSTRING(studentList, 1, commaPosition - 1) AS SIGNED);
+
+        SELECT student_id AS student_id_value;
+
+		INSERT INTO students_assigned_subjects (subject_id, student_id) VALUES (sub_id, student_id);
+
+        SET studentList = SUBSTRING(studentList, commaPosition + 1);
+
+        -- Find the next comma
+        SET commaPosition = LOCATE(',', studentList);
+    END WHILE;
+
+    -- Process the last student_id (if any)
+    IF LENGTH(studentList) > 0 THEN
+        SET student_id = CAST(studentList AS SIGNED);
+        SELECT student_id AS student_id_value;
+		SELECT sub_id AS subject_id_value;
+        
+        INSERT INTO students_assigned_subjects (subject_id, student_id) VALUES (sub_id, student_id);
+    END IF;
+END$$
+
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertSubject` (IN `author_id` INT, IN `subject_title` VARCHAR(255), IN `subject_description` VARCHAR(500), IN `instructor_id` INT)  BEGIN
     INSERT INTO subjects (author, title, description, instructor)
     VALUES (author_id, subject_title, subject_description, instructor_id);
@@ -175,6 +228,12 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Invalid email address';
     END IF;
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateAssignment` (IN `subject_id` INT(255), IN `ass_id` INT(255), IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  BEGIN
+    UPDATE assignments
+	SET title = assignment_title, assignment_description = ass_description, total_score = score
+    WHERE assignment_id = ass_id;
 END$$
 
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateStudent` (IN `studentId` INT, IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
@@ -239,8 +298,8 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`assignment_id`, `author`, `subject_id`, `title`, `assignment_description`, `total_score`, `created`) VALUES
-(1, 1, 7, 'test assignment', 'test desc', 50, '2023-10-18 15:59:46'),
-(2, 1, 7, 'sample assignment', '1', 22, '2023-10-18 16:18:35'),
+(1, 1, 7, 'sample title', 'asdsad', 50, '2023-10-18 15:59:46'),
+(2, 1, 7, 'sample assignment', '1545555', 22, '2023-10-18 16:18:35'),
 (3, 1, 7, 'test assss', 'test assss', 100, '2023-10-18 16:22:40');
 
 -- --------------------------------------------------------
@@ -305,15 +364,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`) VALUES
-(20, 'dion222', 'halcyon'),
-(21, 'Diome Nike', 'asdsda'),
-(22, 'Diome Nike', 'test'),
-(24, 'dion saddsa', 'halcyon'),
-(25, 'aaasdasd', 'asdasd'),
 (26, 'john', 'doe'),
-(27, 'john ', 'test'),
-(29, 'john', 'ssss'),
-(30, 'diooddd', 'nikeee');
+(31, 'Diome Nike', 'Potot');
 
 -- --------------------------------------------------------
 
@@ -325,7 +377,7 @@ CREATE TABLE `students_assigned_subjects` (
   `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
-  `created` varchar(11) NOT NULL
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -347,7 +399,8 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`subject_id`, `title`, `description`, `author`, `instructor`) VALUES
-(7, 'sample subject', 'test', 1, 3);
+(7, 'Math', 'lorem ipsum', 1, 3),
+(8, 'English', 'lorem ipsum\r\n4', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -372,7 +425,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created`, `role`, `profile_picture`, `status`) VALUES
-(1, 'Diome Nike', 'Potot', 'admin@admin.com', '$2y$10$HoEiiEcrKyEPOD/J3Z3cl.0serw6v2eZKMYqNRKfnhoPAByw5cVk.', '2023-10-18 06:37:53', 1, 10, 1),
+(1, 'Diome Nike111', 'Potot', 'admin@admin.com', '$2y$10$HoEiiEcrKyEPOD/J3Z3cl.0serw6v2eZKMYqNRKfnhoPAByw5cVk.', '2023-10-18 06:37:53', 1, 10, 1),
 (3, 'Danny', 'Obidas', 'danny@danny.com', '$2y$10$3ccVuo4hnnrwsO2wEF1aJOGOfdKlinR/rG3ib7V8.VCw4WYW1YCo.', '2023-10-18 13:38:27', 2, 6, 1);
 
 --
@@ -459,19 +512,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `students_assigned_subjects`
 --
 ALTER TABLE `students_assigned_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`

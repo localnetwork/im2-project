@@ -42,18 +42,14 @@
                 $stmt = $this->db->prepare("CALL sp_getStudentsInSubject(:sub_id)");
                 $stmt->bindParam(':sub_id', $subject_id, PDO::PARAM_INT);
                 $stmt->execute();
-
-                if ($stmt->errorCode() == 0) {
-                    $students = $stmt->fetch(PDO::FETCH_ASSOC);
-                    return $students;
-                } else { 
-                    return 0; 
-                } 
-                
+                $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $students;
             } catch (PDOException $e) {
-                echo "Error calling stored procedure: " . $e->getMessage();
-                return $e; 
+                echo "Error: " . $e->getMessage();
+                return false; // Error
             } 
+
+            echo $student; 
         }
 
 

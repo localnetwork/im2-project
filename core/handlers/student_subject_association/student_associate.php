@@ -16,7 +16,7 @@
 
 
         $result = $studentSubjectAssociation->insertStudentsToSub($subject_id, $student_ids); 
-        
+
         if($result === 1) {
             echo 'student created';
             $_SESSION['messages']['success'][0] = 'Successfully associated the students ' . $subInfo['subject_title'];
