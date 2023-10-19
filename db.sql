@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: database
--- Generation Time: Oct 19, 2023 at 12:14 PM
+-- Generation Time: Oct 19, 2023 at 01:39 PM
 -- Server version: 5.7.29
 -- PHP Version: 7.4.20
 
@@ -25,13 +25,15 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteMediaById` (IN `media_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteMediaById` (IN `media_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 DELETE FROM media WHERE mid = media_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  SQL SECURITY INVOKER
+BEGIN
     DECLARE student_count INT;
 
     SELECT COUNT(*) INTO student_count
@@ -47,13 +49,15 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  BEG
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudentsToSubject` (IN `sub_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudentsToSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 DELETE FROM students_assigned_subjects WHERE subject_id = sub_id; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+BEGIN
     DECLARE subject_count INT;
 
     SELECT COUNT(*) INTO subject_count
@@ -69,31 +73,36 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignment` (IN `ass_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignment` (IN `ass_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from assignments WHERE assignment_id = ass_id; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignments` ()  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignments` ()  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from assignments;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructor` (IN `user_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructor` (IN `user_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from users WHERE role = 2 AND id = user_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructors` ()  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructors` ()  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from users WHERE role = 2;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getLastMedia` ()  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getLastMedia` ()  SQL SECURITY INVOKER
+BEGIN
 
 
 SELECT * FROM media ORDER BY mid DESC LIMIT 1;
@@ -107,7 +116,8 @@ SELECT * from media WHERE mid = media_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getRole` (IN `user_role_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getRole` (IN `user_role_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from roles WHERE role_id = user_role_id;
 
@@ -120,19 +130,22 @@ SELECT * FROM students WHERE id = studentId;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudents` ()  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudents` ()  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from students; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentsInSubject` (IN `sub_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentsInSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from students_assigned_subjects WHERE subject_id = sub_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getSubject` (IN `sub_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_getSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 SELECT * from subjects WHERE subject_id = sub_id; 
 
@@ -152,12 +165,14 @@ SELECT * FROM users WHERE email = userEmail;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertAssignment` (IN `author_id` INT, IN `subject_id` INT, IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertAssignment` (IN `author_id` INT, IN `subject_id` INT, IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
+BEGIN
     INSERT INTO assignments (author, subject_id, title, assignment_description, total_score)
     VALUES (author_id, subject_id, assignment_title, ass_description, score);
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertMedia` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255), IN `author_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertMedia` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255), IN `author_id` INT)  SQL SECURITY INVOKER
+BEGIN
 
 DECLARE formatted_now VARCHAR(255);
 
@@ -206,7 +221,8 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertSubject` (IN `author_id` INT, IN `subject_title` VARCHAR(255), IN `subject_description` VARCHAR(500), IN `instructor_id` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertSubject` (IN `author_id` INT, IN `subject_title` VARCHAR(255), IN `subject_description` VARCHAR(500), IN `instructor_id` INT)  SQL SECURITY INVOKER
+BEGIN
     INSERT INTO subjects (author, title, description, instructor)
     VALUES (author_id, subject_title, subject_description, instructor_id);
 END$$
@@ -230,7 +246,8 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateAssignment` (IN `subject_id` INT(255), IN `ass_id` INT(255), IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateAssignment` (IN `subject_id` INT(255), IN `ass_id` INT(255), IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
+BEGIN
     UPDATE assignments
 	SET title = assignment_title, assignment_description = ass_description, total_score = score
     WHERE assignment_id = ass_id;
@@ -243,7 +260,8 @@ BEGIN
     WHERE id = studentId;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateSubject` (IN `sub_id` INT, IN `title` VARCHAR(255), IN `description` VARCHAR(500))  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateSubject` (IN `sub_id` INT, IN `title` VARCHAR(255), IN `description` VARCHAR(500))  SQL SECURITY INVOKER
+BEGIN
     UPDATE subjects
 	SET title = title, description = description
     WHERE subject_id = sub_id;
@@ -269,7 +287,8 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_userUpdate` (IN `user_email` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `profile_picture` VARCHAR(255))  BEGIN
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_userUpdate` (IN `user_email` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `profile_picture` VARCHAR(255))  SQL SECURITY INVOKER
+BEGIN
     UPDATE users
     SET email = user_email, first_name = first_name, last_name = last_name, profile_picture = profile_picture
     WHERE email = user_email;
@@ -299,8 +318,21 @@ CREATE TABLE `assignments` (
 
 INSERT INTO `assignments` (`assignment_id`, `author`, `subject_id`, `title`, `assignment_description`, `total_score`, `created`) VALUES
 (1, 1, 7, 'sample title', 'asdsad', 50, '2023-10-18 15:59:46'),
-(2, 1, 7, 'sample assignment', '1545555', 22, '2023-10-18 16:18:35'),
-(3, 1, 7, 'test assss', 'test assss', 100, '2023-10-18 16:22:40');
+(2, 1, 7, 'sample assignment', '1545555', 25, '2023-10-18 16:18:35'),
+(3, 1, 7, 'test assss', 'test assss', 150, '2023-10-18 16:22:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignment_score`
+--
+
+CREATE TABLE `assignment_score` (
+  `id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -326,7 +358,9 @@ INSERT INTO `media` (`mid`, `filename`, `uri`, `filemime`, `created`, `author`) 
 (7, '1697640299-unknown_54_1 (1).png', '/storage/images/1697640299-unknown_54_1 (1).png', 'png', '2023-10-18 14:44:59', 1),
 (8, '1697640302-unknown.png', '/storage/images/1697640302-unknown.png', 'png', '2023-10-18 14:45:02', 1),
 (9, '1697641365-366903889_316698967390036_9172396626901161920_n.jpg', '/storage/images/1697641365-366903889_316698967390036_9172396626901161920_n.jpg', 'jpg', '2023-10-18 15:02:45', 1),
-(10, '1697641890-unknown (53).png', '/storage/images/1697641890-unknown (53).png', 'png', '2023-10-18 15:11:31', 1);
+(10, '1697641890-unknown (53).png', '/storage/images/1697641890-unknown (53).png', 'png', '2023-10-18 15:11:31', 1),
+(11, '1697721342-342340031_5398775150225014_1983758377924510657_n.jpg', '/storage/images/1697721342-342340031_5398775150225014_1983758377924510657_n.jpg', 'jpg', '2023-10-19 13:15:42', 1),
+(12, '1697722700-unknown (53).png', '/storage/images/1697722700-unknown (53).png', 'png', '2023-10-19 13:38:21', 1);
 
 -- --------------------------------------------------------
 
@@ -364,8 +398,9 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `first_name`, `last_name`) VALUES
-(26, 'john', 'doe'),
-(31, 'Diome Nike', 'Potot');
+(26, 'john', 'doeeee'),
+(31, 'Diome Nike', 'Potot'),
+(32, 'student first name', 'student last name');
 
 -- --------------------------------------------------------
 
@@ -379,6 +414,16 @@ CREATE TABLE `students_assigned_subjects` (
   `subject_id` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `students_assigned_subjects`
+--
+
+INSERT INTO `students_assigned_subjects` (`id`, `student_id`, `subject_id`, `created`) VALUES
+(135, 31, 7, '2023-10-19 13:07:00'),
+(138, 26, 8, '2023-10-19 13:09:58'),
+(139, 31, 8, '2023-10-19 13:09:58'),
+(140, 31, 14, '2023-10-19 13:16:35');
 
 -- --------------------------------------------------------
 
@@ -399,8 +444,9 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`subject_id`, `title`, `description`, `author`, `instructor`) VALUES
-(7, 'Math', 'lorem ipsum', 1, 3),
-(8, 'English', 'lorem ipsum\r\n4', 1, 3);
+(7, 'Mathdddd', 'lorem ipsum', 1, 3),
+(8, 'English', 'lorem ipsum', 1, 3),
+(14, 'Programming 1', 'introduction to asdjasdjsajd', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -425,7 +471,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created`, `role`, `profile_picture`, `status`) VALUES
-(1, 'Diome Nike111', 'Potot', 'admin@admin.com', '$2y$10$HoEiiEcrKyEPOD/J3Z3cl.0serw6v2eZKMYqNRKfnhoPAByw5cVk.', '2023-10-18 06:37:53', 1, 10, 1),
+(1, 'Diome Nike', 'Potot', 'admin@admin.com', '$2y$10$HoEiiEcrKyEPOD/J3Z3cl.0serw6v2eZKMYqNRKfnhoPAByw5cVk.', '2023-10-18 06:37:53', 1, 12, 1),
 (3, 'Danny', 'Obidas', 'danny@danny.com', '$2y$10$3ccVuo4hnnrwsO2wEF1aJOGOfdKlinR/rG3ib7V8.VCw4WYW1YCo.', '2023-10-18 13:38:27', 2, 6, 1);
 
 --
@@ -439,6 +485,12 @@ ALTER TABLE `assignments`
   ADD PRIMARY KEY (`assignment_id`),
   ADD KEY `fk_assignment_author` (`author`),
   ADD KEY `fk_assignment_subject` (`subject_id`);
+
+--
+-- Indexes for table `assignment_score`
+--
+ALTER TABLE `assignment_score`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `media`
@@ -497,10 +549,16 @@ ALTER TABLE `assignments`
   MODIFY `assignment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `assignment_score`
+--
+ALTER TABLE `assignment_score`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -512,19 +570,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `students_assigned_subjects`
 --
 ALTER TABLE `students_assigned_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`

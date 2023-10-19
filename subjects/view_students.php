@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Students for this subject</title>
+    <title>Students in <?php
+            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+            $subject = new Subject(); 
+            $subject = $subject->getSubject($_GET['id']);
+            echo $subject['title']; 
+        ?> </title>
     <?php
         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
@@ -33,7 +38,7 @@
             </div>
         </div>
         <div>
-            <a href="../users/dashboard.php">Back to dashboard</a>
+            <a href="/subjects">Back to subjects</a>
         </div>
         <?php
             require_once '../templates/alerts/alerts.php';
@@ -47,39 +52,46 @@
                     <div class="table-column">
                         Last Name
                     </div>
-                    <div class="table-column">
-                        Actions
-                    </div>
+                    
                 </div>
                 <div class="table-body">
                         <?php
 
                         try {
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
+                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student_subject_association.php');
+                            $student = new Student(); 
+                            $students = $student->getStudents();  
+
+                            $studentsInSubject = new studentSubjectAssociation();  
+                            $studentsInSubject = $studentsInSubject->getStudentsInSubject($_GET['id']);
+                            $SidsinSubjects = array_column($studentsInSubject, 'student_id');
                             
-                            $dbcon = new Database();
-                            $db = $dbcon->getConnection();
-                            $subjects = new Subject(); 
-                            $subjects = $subjects->getSubjects(); 
-
-
-                            foreach($subjects as $row) {
-                                echo "<div class='item table-row'>";
-                                echo "<div class='item-wrapper table-row-wrapper'>";
-                                echo "<div class='table-column fname'>{$row['title']}</div>";
-                                echo "<div class='table-column secondary lname'>{$row['description']}</div>";
-                               
-                                echo "<div class='table-column actions'><div class='delete'><a href='/subjects/ddd.php?id={$row['subject_id']}'>Remove</a></div></div>";
-                                echo "</div>";
-                                echo "</div>"; 
+                            if(!$SidsinSubjects) {
+                                echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
+                            }
+                            foreach($students as $student) {
+                                
+                                if(in_array($student['id'], $SidsinSubjects)) {
+                                    echo "
+                                    <div class='item table-row'>
+                                        <div class='item-wrapper table-row-wrapper'>
+                                            <div class='table-column fname'>
+                                                {$student['first_name']}
+                                            </div>
+                                            <div class='table-column secondary lname'>
+                                                {$student['last_name']}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ";
+                                }
                             }
 
                         } catch (PDOException $e) {
                             echo "Error: " . $e->getMessage();
                         }
                         ?>
-                        
                 </div>
             </div>
         </div>
