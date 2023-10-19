@@ -3,6 +3,7 @@
   --secondary: rgb(107, 114, 128);
   --primary: rgb(17, 24, 39);
   --bgSecondary: #0861f2;
+  --fontPrimary: "Open Sans", sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -36,6 +37,10 @@ label {
   color: #606770;
   font-weight: 700;
 }
+.form-checkboxes .item {
+  display: flex;
+  align-items: center;
+}
 .form-item input,
 .form-item textarea,
 .form-item select {
@@ -47,9 +52,36 @@ label {
   border-radius: 10px;
   font-size: 18px;
   display: inline-block;
+  font-family: var(--fontPrimary);
 }
 .form-item textarea {
   min-height: 300px;
+}
+.checkboxes .item {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+  position: relative;
+}
+.checkboxes .item label {
+  margin: 0;
+  cursor: pointer;
+  background-color: #f3f3f3;
+  padding: 20px 20px 20px 60px;
+  border-radius: 5px;
+  width: 100%;
+}
+.checkboxes .item label:hover {
+  color: #0866ff;
+  background-color: #d3e4ff;
+}
+
+.form-item input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
 .btn,

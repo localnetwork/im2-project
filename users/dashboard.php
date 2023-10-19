@@ -17,7 +17,7 @@
             <?php
                 require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
 
-                require_once '../templates/alerts/alerts.php';
+                
 
 
                 if (isset($_SESSION['user'])) {
@@ -29,8 +29,11 @@
                         // echo "
                         // <small>Date joined: {$userInfo['created']}</small>"; 
                         
-                        echo " <div class='user-taskbar container'>
-                                <h2>What do you want to do?</h2>
+                        echo " <div class='user-taskbar container'>";
+
+                        require_once '../templates/alerts/alerts.php';
+
+                        echo "<h2>What do you want to do?</h2>
                                 
                                 <div class='row'>
                                     <div class='task card'>

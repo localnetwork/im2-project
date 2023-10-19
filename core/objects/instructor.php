@@ -69,6 +69,7 @@ class Instructor {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
             $stmt->execute();
+            
             $instructor = $stmt->fetch(PDO::FETCH_ASSOC);
             return $instructor;
         } catch (PDOException $e) {

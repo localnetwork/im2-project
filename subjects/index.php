@@ -51,11 +51,11 @@
                         try {
                             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
                             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php');
+                            
                             
                             $dbcon = new Database();
                             $db = $dbcon->getConnection();
-                            $instructor = new Instructor(); 
+                            
                             $subjects = new Subject(); 
                             $subjects = $subjects->getSubjects(); 
 
@@ -63,12 +63,18 @@
                                 echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
                             }
                             foreach($subjects as $row) {
-                                $instructor = $instructor->getInstructor($row['instructor']); 
+                                if(isset($row['instructor'])) {
+                                    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php'); 
+                                    $instructor = new Instructor(); 
+                                    $instructor = $instructor->getInstructor($row['instructor']); 
+                                }
                                 echo "<div class='item table-row'>";
                                 echo "<div class='item-wrapper table-row-wrapper'>";
                                 echo "<div class='table-column fname'>{$row['title']}</div>";
                                 echo "<div class='table-column secondary description'>{$row['description']}</div>";
+                                if(isset($row['instructor'])) {
                                 echo "<div class='table-column secondary instructor'>{$instructor['first_name']} {$instructor['last_name']}</div>";
+                                }
                                 echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['subject_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['subject_id']}'>Delete</a></div><div class='delete'><a href='/subjects/view_students.php?id={$row['subject_id']}'>View Students</a></div></div>";
                                 echo "</div>";
                                 echo "</div>"; 

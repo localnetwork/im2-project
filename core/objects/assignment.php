@@ -51,10 +51,10 @@ class Assignment {
         } 
     } 
 
-    public function getSubject($subject_id) {
+    public function getAssignment($assignment_id) {
         try {
-            $stmt = $this->db->prepare("CALL sp_getSubject(:sub_id)");
-            $stmt->bindParam(':sub_id', $subject_id, PDO::PARAM_INT);
+            $stmt = $this->db->prepare("CALL sp_getAssignment(:ass_id)");
+            $stmt->bindParam(':ass_id', $assignment_id, PDO::PARAM_INT);
             $stmt->execute();
             $subject = $stmt->fetch(PDO::FETCH_ASSOC);
             return $subject;
@@ -64,12 +64,14 @@ class Assignment {
         } 
     } 
 
-    public function updateSubject($subject_id, $title, $description) {
+    public function updateAssignment($subject_id, $assignment_id, $title, $description, $score) {
         try {
-            $stmt = $this->db->prepare("call sp_updateSubject(:sub_id, :title, :description)");
-            $stmt->bindParam(':sub_id', $subject_id, PDO::PARAM_INT);
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt = $this->db->prepare("call sp_updateAssignment(:subject_id, :ass_id, :assignment_title, :ass_description, :score)");
+            $stmt->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
+            $stmt->bindParam(':ass_id', $assignment_id, PDO::PARAM_INT);
+            $stmt->bindParam(':assignment_title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':ass_description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':score', $score, PDO::PARAM_INT);
             
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {

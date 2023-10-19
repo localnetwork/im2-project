@@ -13,7 +13,6 @@
             'subject_description' => $_POST['subject_description'],
             'instructor_id' => !empty($_POST['instructor_id']) ? $_POST['instructor_id'] : null
         );
-
         $result = $subject->createSubject($subInfo); 
 
         if($result === 1) {

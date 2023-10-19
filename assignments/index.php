@@ -39,7 +39,7 @@
                         Description
                     </div>
                     <div class="table-column">
-                        Instructor
+                        Score
                     </div>
                     <div class="table-column">
                         Actions
@@ -68,13 +68,12 @@
                                 echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
                             }
                             foreach($assignments as $row) {
-                                // $instructor = $instructor->getInstructor($row['instructor']); 
                                 echo "<div class='item table-row'>";
                                 echo "<div class='item-wrapper table-row-wrapper'>";
                                 echo "<div class='table-column fname'>{$row['title']}</div>";
                                 echo "<div class='table-column secondary description'>{$row['assignment_description']}</div>";
-                                // echo "<div class='table-column secondary instructor'>{$instructor['first_name']} {$instructor['last_name']}</div>";
-                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['subject_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['subject_id']}'>Delete</a></div></div>";
+                                echo "<div class='table-column secondary instructor'>{$row['total_score']}</div>";
+                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['assignment_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['assignment_id']}'>Delete</a></div></div>";
                                 echo "</div>";
                                 echo "</div>"; 
                             }

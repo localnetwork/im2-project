@@ -12,7 +12,7 @@
         ?> 
       <div class="main-wrapper">
          <div class="box">
-            <h2>Add a subject</h2>
+            <h2>Add an assignment</h2>
             <div>
                 <a href="../assignments">Back to assignments</a>    
             </div> 
@@ -23,7 +23,7 @@
             
             
             <form action="../../core/handlers/assignment/insert_assignment.php" method="POST">
-            <div class="form-item">
+               <div class="form-item">
                   <label for="subject">Subject:</label>
                   <select type="textarea" id="subject" name="subject" required>
                   <?php

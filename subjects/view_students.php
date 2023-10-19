@@ -26,10 +26,10 @@
         <div class="head-actions">
             <div class="">
                 
-                <p>A list of all the students in this subject.</p>
+                <p>A list of students in this subject.</p>
             </div>
             <div class="">
-                <a class="btn" href="./create.php">Associate students</a>
+                <a class="btn" href="./associate_students.php?id=<?php echo $_GET['id']; ?>">Associate students</a>
             </div>
         </div>
         <div>
