@@ -12,7 +12,7 @@
         ?> 
     <div class="main-wrapper">
         <div class="container">
-        <h1 class="page-header">Assignments</h1>
+        <h1 class="page-header">Scores</h1>
 
         <div class="head-actions">
             <div class="">
@@ -20,11 +20,11 @@
                 <p>A list of all the assignments.</p>
             </div>
             <div class="">
-                <a class="btn" href="./create.php">Add assignment</a>
+                <a class="btn" href="./create.php">Add score</a>
             </div>
         </div>
         <div>
-            <a href="../users/dashboard.php">Back to dashboard</a>
+            <a href="../assignments">Back to assignments</a>
         </div>
         <?php
             require_once '../templates/alerts/alerts.php';
@@ -33,7 +33,7 @@
             <div class="table">
                 <div class="table-header w-full">
                     <div class="table-column">
-                        Title
+                        Student
                     </div>
                     <div class="table-column">
                         Description
