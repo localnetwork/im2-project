@@ -39,6 +39,9 @@
                         Description
                     </div>
                     <div class="table-column">
+                        Subject
+                    </div>
+                    <div class="table-column">
                         Score
                     </div>
                     <div class="table-column">
@@ -57,8 +60,8 @@
                             $dbcon = new Database();
                             $db = $dbcon->getConnection();
                             $instructor = new Instructor(); 
-                            $subjects = new Subject(); 
-                            $subjects = $subjects->getSubjects(); 
+                            
+
                             $assignment = new Assignment(); 
 
                             $assignments = $assignment->getAssignments(); 
@@ -68,11 +71,23 @@
                                 echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
                             }
                             foreach($assignments as $row) {
+                                
+                                if($row['subject_id']) {
+                                    $subject = new Subject(); 
+                                    $subject = $subject->getSubject($row['subject_id']); 
+                                    $subject = $subject['title'];
+                                }else {
+                                    $subject = ''; 
+                                }
+
+                              
+
                                 echo "<div class='item table-row'>";
                                 echo "<div class='item-wrapper table-row-wrapper'>";
                                 echo "<div class='table-column fname'>{$row['title']}</div>";
                                 echo "<div class='table-column secondary description'>{$row['assignment_description']}</div>";
-                                echo "<div class='table-column secondary instructor'>{$row['total_score']}</div>";
+                                echo "<div class='table-column secondary subject'>{$subject}</div>";
+                                echo "<div class='table-column secondary instructor'>{$row['total_score']}</div>";                                
                                 echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['assignment_id']}'>Edit</a></div><div class='delete'><a href='/assignments/delete.php?id={$row['assignment_id']}'>Delete</a></div><div class='delete'><a href='/assignments/scores.php?id={$row['assignment_id']}'>View Scores</a></div></div>";
                                 echo "</div>";
                                 echo "</div>"; 

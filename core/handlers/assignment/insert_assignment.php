@@ -6,7 +6,6 @@
     if($_SERVER["REQUEST_METHOD"] === 'POST') {
         $assignment = new Assignment(); 
         
-        var_dump($_POST); 
         $assignmentInfo = array(
             'author_id' => $_SESSION['user']['id'],
             'subject_id' => $_POST['subject'],

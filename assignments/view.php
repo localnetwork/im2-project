@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>List of Subjects</title>
+    <title>List of Assignments</title>
     <?php
         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
     ?>
@@ -12,15 +12,24 @@
         ?> 
     <div class="main-wrapper">
         <div class="container">
-        <h1 class="page-header">Subjects</h1>
+        <h1 class="page-header">Assignments in
+            <?php
+                require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+                $subject = new Subject(); 
+                $subject = $subject->getSubject($_GET['id']); 
+
+                echo $subject['title']; 
+            ?>
+
+        </h1>
 
         <div class="head-actions">
             <div class="">
                 
-                <p>A list of all the subjects.</p>
+                <p>A list of all the assignments.</p>
             </div>
             <div class="">
-                <a class="btn" href="./create.php">Add subject</a>
+                <a class="btn" href="./create.php?id=<?php echo $_GET['id']; ?>">Add assignment</a>
             </div>
         </div>
         <div>
@@ -39,7 +48,7 @@
                         Description
                     </div>
                     <div class="table-column">
-                        Instructor
+                        Score
                     </div>
                     <div class="table-column">
                         Actions
@@ -51,31 +60,29 @@
                         try {
                             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
                             require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
-                            
+                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php');
+                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
                             
                             $dbcon = new Database();
                             $db = $dbcon->getConnection();
-                            
+                            $instructor = new Instructor(); 
                             $subjects = new Subject(); 
                             $subjects = $subjects->getSubjects(); 
+                            $assignment = new Assignment(); 
+                            
+                            $assignments = $assignment->getAssignmentsBySubject($_GET['id']); 
 
-                            if(!$subjects) {
-                                echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
+
+                            if(!$assignments) {
+                                echo "<div class='no-result'>There are no assignments to show. Please add an assignment.</div>"; 
                             }
-                            foreach($subjects as $row) {
-                                if(isset($row['instructor'])) {
-                                    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php'); 
-                                    $instructor = new Instructor(); 
-                                    $instructor = $instructor->getInstructor($row['instructor']); 
-                                }
+                            foreach($assignments as $row) {
                                 echo "<div class='item table-row'>";
                                 echo "<div class='item-wrapper table-row-wrapper'>";
                                 echo "<div class='table-column fname'>{$row['title']}</div>";
-                                echo "<div class='table-column secondary description'>{$row['description']}</div>";
-                                if(isset($row['instructor'])) {
-                                echo "<div class='table-column secondary instructor'>{$instructor['first_name']} {$instructor['last_name']}</div>";
-                                }
-                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['subject_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['subject_id']}'>Delete</a></div><div class='delete'><a href='/subjects/view_students.php?id={$row['subject_id']}'>View Students</a></div><div class='delete'><a href='/assignments/view.php?id={$row['subject_id']}'>View Assignments</a></div><div class='delete'><a href='/subjects/student_grades.php?id={$row['subject_id']}'>Student Grades</a></div></div>";
+                                echo "<div class='table-column secondary description'>{$row['assignment_description']}</div>";
+                                echo "<div class='table-column secondary instructor'>{$row['total_score']}</div>";
+                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['assignment_id']}'>Edit</a></div><div class='delete'><a href='/assignments/delete.php?id={$row['assignment_id']}'>Delete</a></div><div class='delete'><a href='/assignments/scores.php?id={$row['assignment_id']}'>View Scores</a></div></div>";
                                 echo "</div>";
                                 echo "</div>"; 
                             }

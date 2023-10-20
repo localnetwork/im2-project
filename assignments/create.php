@@ -32,9 +32,10 @@
                         $subjects = $subjects->getSubjects(); 
 
                         foreach ($subjects as $subject) {
-                            echo '<option value="' . $subject['subject_id'] . '">' . $subject['title'] .'</option>';
+                           $selected = ($subject['subject_id'] == $_GET['id']) ? 'selected' : '';
+                           echo '<option ' . $selected . ' value="' . $subject['subject_id'] . '">' . $subject['title'] .'</option>';
                         }
-                    ?>
+                  ?>
                   </select>
                 </div>
 

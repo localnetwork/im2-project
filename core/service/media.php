@@ -4,7 +4,7 @@ function insertMedia($profile_picture, $db) {
 
    
 
-    $sql = "call sp_insertMedia(:filename, :uri,:filemime, :author)";
+    $sql = "call sp_insertMedia(:filename, :uri,:filemime)";
 
     
     $stmt = $db->prepare($sql);
@@ -14,7 +14,6 @@ function insertMedia($profile_picture, $db) {
     $stmt->bindParam(':filename', $filename);
     $stmt->bindParam(':filemime', $fileFormat);
     $stmt->bindParam(':uri', $path); 
-    $stmt->bindParam(':author', $_SESSION['user']['id']); 
 
    
     $uri = $_SERVER['DOCUMENT_ROOT'] . "/storage/images/{$filename}";
@@ -68,6 +67,7 @@ function insertMedia($profile_picture, $db) {
  
     return $media_id;  
 }
+
 
 function deleteMedia($profile_picture, $db) {
 

@@ -12,15 +12,26 @@
         ?> 
     <div class="main-wrapper">
         <div class="container">
-        <h1 class="page-header">Scores</h1>
+        <h1 class="page-header">Scores in
+            
+            <?php
+                require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                $assignment = new Assignment(); 
+                $assignment = $assignment->getAssignment($_GET['id']); 
+                echo $assignment['title']; 
+                if($assignment === false) {
+                    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                }
+            ?>
+        </h1>
 
         <div class="head-actions">
             <div class="">
                 
-                <p>A list of all the assignments.</p>
+                <p>A list of scores in this assignment.</p>
             </div>
             <div class="">
-                <a class="btn" href="./create.php">Add score</a>
+                <a class="btn" href="../scores/create.php?id=<?php echo $_GET['id'];?>">Add score</a>
             </div>
         </div>
         <div>
@@ -36,47 +47,69 @@
                         Student
                     </div>
                     <div class="table-column">
-                        Description
-                    </div>
-                    <div class="table-column">
                         Score
                     </div>
-                    <div class="table-column">
+                    <!-- <div class="table-column">
                         Actions
-                    </div>
+                    </div> -->
                 </div>
                 <div class="table-body columns-4">
                         <?php
 
                         try {
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
+                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student_subject_association.php');
+                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
                             
-                            $dbcon = new Database();
-                            $db = $dbcon->getConnection();
-                            $instructor = new Instructor(); 
-                            $subjects = new Subject(); 
-                            $subjects = $subjects->getSubjects(); 
-                            $assignment = new Assignment(); 
+                        $assignment = new Assignment();  
+                        
+                        $ass = $assignment->getAssignment($_GET['id']); 
 
-                            $assignments = $assignment->getAssignments(); 
+                        
 
+                        $student = new Student(); 
+                        $students = $student->getStudents();  
 
-                            if(!$assignments) {
-                                echo "<div class='no-result'>There are no subjects to show. Please create a subject.</div>"; 
+                        $studentsInSubject = new studentSubjectAssociation();  
+                        $studentsInSubject = $studentsInSubject->getStudentsInSubject($ass['subject_id']);
+                        $SidsinSubjects = array_column($studentsInSubject, 'student_id');
+                        
+                        
+                        
+
+                        foreach($students as $student) {
+                            if(in_array($student['id'], $SidsinSubjects)) {
+                                $id = new Assignment();
+                                // $score = $assignment->getStudentAssignmentRecord($student['id'], $_GET['id']);
+                          
+                                $score = $id->getStudentAssignmentScore($student['id'], $_GET['id']);
+
+                                if(isset($score)) {
+                                    $score = $score[0]['score']; 
+                                }else {
+                                    $score = 'No score';
+                                }
+                               
+                                echo "
+                                    <div class='item table-row'> 
+                                        <div class='item-wrapper table-row-wrapper'>
+                                            <div class='table-column'>
+                                            {$student['first_name']}
+                                            {$student['last_name']}
+                                            </div>
+                                            <div class='table-column'>
+                                            {$score}
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                ";
+
+                                 // <div class='table-column actions'>
+                                // <div class='edit'><a href='./edit.php?id=7'>Edit</a></div>
+                                // </div>
                             }
-                            foreach($assignments as $row) {
-                                echo "<div class='item table-row'>";
-                                echo "<div class='item-wrapper table-row-wrapper'>";
-                                echo "<div class='table-column fname'>{$row['title']}</div>";
-                                echo "<div class='table-column secondary description'>{$row['assignment_description']}</div>";
-                                echo "<div class='table-column secondary instructor'>{$row['total_score']}</div>";
-                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['assignment_id']}'>Edit</a></div><div class='delete'><a href='/assignments/delete.php?id={$row['assignment_id']}'>Delete</a></div><div class='delete'><a href='/assignments/scores.php?id={$row['assignment_id']}'>View Scores</a></div></div>";
-                                echo "</div>";
-                                echo "</div>"; 
-                            }
+                        }
 
                         } catch (PDOException $e) {
                             echo "Error: " . $e->getMessage();
