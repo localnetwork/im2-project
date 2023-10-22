@@ -15,6 +15,9 @@
                 echo 'Student deleted successfully';
                 $_SESSION['messages']['success'][0] = 'Student deleted successfully';
                 header("Location: /students");
+            }else {
+                $_SESSION['messages']['errors'][0] = "You're not allowed to delete a student associated with other entities.";
+                header("Location: /students");
             }
         }else {
             echo 'Student not found!'; 

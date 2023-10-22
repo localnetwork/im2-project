@@ -63,12 +63,13 @@ class Subject {
         } 
     } 
 
-    public function updateSubject($subject_id, $title, $description) {
+    public function updateSubject($instructor_id, $subject_id, $title, $description) {
         try {
-            $stmt = $this->db->prepare("call sp_updateSubject(:sub_id, :title, :description)");
+            $stmt = $this->db->prepare("call sp_updateSubject(:sub_id, :instructor_id, :title, :description)");
             $stmt->bindParam(':sub_id', $subject_id, PDO::PARAM_INT);
+            $stmt->bindParam(':instructor_id', $instructor_id, PDO::PARAM_STR);
             $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $description, PDO::PARAM_STR); 
             
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {

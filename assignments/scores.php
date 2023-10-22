@@ -49,9 +49,9 @@
                     <div class="table-column">
                         Score
                     </div>
-                    <!-- <div class="table-column">
+                    <div class="table-column">
                         Actions
-                    </div> -->
+                    </div>
                 </div>
                 <div class="table-body columns-4">
                         <?php
@@ -83,13 +83,20 @@
                                 // $score = $assignment->getStudentAssignmentRecord($student['id'], $_GET['id']);
                           
                                 $score = $id->getStudentAssignmentScore($student['id'], $_GET['id']);
-
+                                
                                 if(isset($score)) {
-                                    $score = $score[0]['score']; 
+                                    $score_value = $score[0]['score']; 
+                                    $actions = "
+                                        <div class='edit'><a href='../scores/edit.php?id={$score[0]['id']}'>Edit</a></div>
+                                        <div class='delete'><a href='../scores/delete.php?id={$score[0]['id']}'>Delete</a></div>
+                                    ";
                                 }else {
-                                    $score = 'No score';
+                                    $score_value = 'No score';
+                                    $actions = ""; 
                                 }
-                               
+
+                                
+
                                 echo "
                                     <div class='item table-row'> 
                                         <div class='item-wrapper table-row-wrapper'>
@@ -98,16 +105,17 @@
                                             {$student['last_name']}
                                             </div>
                                             <div class='table-column'>
-                                            {$score}
+                                            {$score_value}
                                             </div>
-                                           
+                                            <div class='table-column actions'>
+                                ";
+                                
+                                echo $actions; 
+                                echo "
+                                            </div>
                                         </div>
                                     </div>
                                 ";
-
-                                 // <div class='table-column actions'>
-                                // <div class='edit'><a href='./edit.php?id=7'>Edit</a></div>
-                                // </div>
                             }
                         }
 

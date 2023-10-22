@@ -10,12 +10,15 @@
         $subject_id = $_POST['subject_id'];
         $title = $_POST['subject_title']; 
         $description = $_POST['subject_description']; 
+        $instructor_id = intval($_POST['instructor_id']); 
+
+        var_dump($instructor_id); 
         
         // Check if subject exists in the database.
         $subjectExist = $subject->getSubject($subject_id); 
         
         if(isset($subjectExist)) {
-            $result = $subject->updateSubject($subject_id, $title, $description);
+            $result = $subject->updateSubject($instructor_id, $subject_id, $title, $description);
 
             if ($result === true) {
                 echo 'Subject updated successfully';
@@ -24,8 +27,8 @@
             }else {
                 echo "Can't update subject with the same value."; 
 
-                $_SESSION['messages']['errors'][0] = "Can't update subject with the same value";
-                header("Location: /subjects/edit.php?id=" . $subject_id);
+                // $_SESSION['messages']['errors'][0] = "Can't update subject with the same value";
+                // header("Location: /subjects/edit.php?id=" . $subject_id);
             } 
         }else {
             echo 'Subject not found!'; 

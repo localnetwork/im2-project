@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Student</title>
+    <title>Edit Subject</title>
     <?php
         require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
-<body class="page-students">
+<body class="page-subjects">
 <?php
             require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
@@ -15,11 +15,16 @@
             <div class="test">
             <?php 
                 require_once '../core/objects/subject.php'; 
+                require_once '../core/objects/instructor.php'; 
                 require_once '../templates/alerts/alerts.php'; 
                 if (isset($_GET['id'])) {
                     $subject_id = intval($_GET['id']); 
                     $subject = new Subject($subject_id); 
                     $subject = $subject->getSubject($subject_id); 
+
+                    $instructor = new Instructor();
+                    $instructors = $instructor->getInstructors(); 
+
                     if($subject !== false) {
                         echo "
                             <h1 class='page-header'> Edit subject {$subject['title']}</h1>
@@ -32,7 +37,33 @@
                                     <label for='subject_title'>Subject Title:</label>
                                     <input type='text' id='subject_title' name='subject_title'  required value='{$subject['title']}'>
                                 </div>
-                                <div class='form-item'>
+                                
+                            ";
+
+                            // foreach ($subjects as $subject) {
+                            //     if(isset( $_GET['id'])) {
+                            //        $selected = ($subject['subject_id'] == $_GET['id']) ? 'selected' : '';
+                            //     }else {
+                            //        $selected = ''; 
+                            //     }
+                                
+                            //     echo '<option ' . $selected . ' value="' . $subject['subject_id'] . '">' . $subject['title'] .'</option>';
+                            //  }
+                        echo '<div class="form-item">
+                                <label for="instructor">Instructor</label>
+                        <select name="instructor_id" id="instructor_id">';
+                        foreach($instructors as $instructor) {
+                            if(isset($subject['instructor'])) {
+                                $selected = ($instructor['id'] == $subject['instructor']) ? 'selected' : '';
+                             }else {
+                                $selected = ''; 
+                             }
+                            echo "
+                                <option {$selected} value='{$instructor['id']}'>{$instructor['first_name']} {$instructor['last_name']}</option>
+                            ";
+                        }
+                        echo '</select></div>';
+                        echo "<div class='form-item'>
                                     <label for='subject_description'>Subject Description:</label>
                                     <textarea type='text' id='subject_description' name='subject_description' required>{$subject['description']}</textarea>
                                 </div>

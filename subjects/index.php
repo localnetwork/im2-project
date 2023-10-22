@@ -75,7 +75,7 @@
                                 if(isset($row['instructor'])) {
                                 echo "<div class='table-column secondary instructor'>{$instructor['first_name']} {$instructor['last_name']}</div>";
                                 }
-                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['subject_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['subject_id']}'>Delete</a></div><div class='delete'><a href='/subjects/view_students.php?id={$row['subject_id']}'>View Students</a></div><div class='delete'><a href='/assignments/view.php?id={$row['subject_id']}'>View Assignments</a></div><div class='delete'><a href='/subjects/student_grades.php?id={$row['subject_id']}'>Student Grades</a></div></div>";
+                                echo "<div class='table-column actions'><div class='edit'><a href='./edit.php?id={$row['subject_id']}'>Edit</a></div><div class='delete'><a href='/subjects/delete.php?id={$row['subject_id']}'>Delete</a></div><div class='delete'><a href='/subjects/view_students.php?id={$row['subject_id']}'>View Students</a></div><div class='delete'><a href='/assignments/view.php?id={$row['subject_id']}'>View Assignments</a></div><div class='delete'><a href='/subjects/students_grades.php?id={$row['subject_id']}'>Students Grades</a></div></div>";
                                 echo "</div>";
                                 echo "</div>"; 
                             }

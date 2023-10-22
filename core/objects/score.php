@@ -59,7 +59,72 @@ class Score {
         echo "New records created successfully";
         $stmt->close();
         $conn->close();
+    } 
+    
+    public function getScoreById($score_id) {
+        
+        try {
+            $sql = "call sp_getScoreById(:score_id)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':score_id', $score_id, PDO::PARAM_INT);
+            $stmt->execute(); 
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (count($result) > 0) {
+                return $result; 
+                // return 1; // Return the assignment_score record details
+            } else {
+                return null; // No records found
+            } 
+        }catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return -1; 
+        }
+        $stmt->close(); 
+        $conn->close();
     }    
+
+
+    public function updateScore($score_id, $score_value) {
+        try {
+            $stmt = $this->db->prepare("call sp_updateScore(:score_id, :score_value)");
+            $stmt->bindParam(':score_id', $score_id, PDO::PARAM_INT);
+            $stmt->bindParam(':score_value', $score_value, PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true; // Success, at least one row was updated
+                } else {
+                    return false; // No rows were updated
+                }
+            } else {
+                return false; // Error during execution
+            } 
+        } catch (PDOException $e) { 
+            echo "Error: " . $e->getMessage();
+            return false; // Error
+        } 
+    }
+
+    public function deleteScore($score_id) {
+        try {
+            $stmt = $this->db->prepare("call sp_deleteScore(:score_id)");
+            $stmt->bindParam(':score_id', $score_id, PDO::PARAM_INT);
+            
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true; // Success, at least one row was updated
+                } else {
+                    return false; // No rows were updated
+                }
+            } else {
+                return false; // Error during execution
+            } 
+        } catch (PDOException $e) { 
+            echo "Error: " . $e->getMessage();
+            return false; // Error
+        }
+    } 
 }
 
     

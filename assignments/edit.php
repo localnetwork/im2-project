@@ -59,15 +59,15 @@
                                 </div>
                                 <div class='form-item'>
                                     <label for='score'>Total Score:</label>
-                                    <input type='text' id='score' name='score'  required value='{$assignment['total_score']}'>
+                                    <input type='text' id='score' name='score' value='{$assignment['total_score']}'>
                                 </div> 
-                                <input class='btn' type='submit' value='Update subject'>
+                                <input class='btn' type='submit' value='Update assignment'>
                             </form>
                         ";
                     }else {
                         // Redirect if subject not found.
-                        echo 'Subject not found.'; 
-                        // header("Location: /subjects");
+                        echo 'Assignment not found.'; 
+                        header("Location: /assignments");
                     }
                     
                 }

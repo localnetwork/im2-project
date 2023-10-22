@@ -18,7 +18,7 @@
                 header("Location: /subjects");
             }else {
                 echo 'Subject deleted successfully';
-                $_SESSION['messages']['errors'][0] = 'You cannot delete a subject that is associated with an assignment.';
+                $_SESSION['messages']['errors'][0] = "You're not allowed to delete a subject associated with other entities.";
                 header("Location: /subjects");
                 
             }

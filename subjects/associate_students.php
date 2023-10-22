@@ -57,7 +57,7 @@
 
                 
             
-               <input class="btn" type="submit" value="Add students">
+               <input class="btn" type="submit" value="Associate students">
             </form>
          </div>
       </div>

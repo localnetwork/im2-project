@@ -1,30 +1,83 @@
 /* WELLJADE */
-
+/* 
 .main-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+} */
+
+/* .login-container {
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  box-sizing: border-box;
+  margin: 40px 0 0;
+  padding: 20px 28px 28px;
+}
+
+@media (max-width: 768px) {
   .login-container {
-    padding: 100px 50px;
-    margin: 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-align: center;
+    margin: 0px 100px;
+    font-size: x-small;
   }
-  
-  @media (max-width:768px) { 
-    .login-container {
-        text-align: center;
-        margin: 0px 100px;
-        font-size: x-small;
-    }
-  
-    .btn{
-        font-size: x-small;
-    }
-  
-    .form-item input {
-        height: 10px;
-        border-radius: 0px;
-    }
+
+  .btn {
+    font-size: x-small;
   }
+
+  .form-item input {
+    height: 10px;
+    border-radius: 0px;
+  }
+} */
+.page-login {
+  background-color: #f0f2f5;
+}
+.page-login .login-container {
+  max-width: 396px;
+  margin: 0 auto;
+}
+.login-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+}
+.page-login {
+  padding: 0 10px;
+}
+.page-login .form-item {
+  margin-bottom: 20px;
+}
+.page-login .form-item input {
+  border: 1px solid #dddfe2;
+  background-color: #fff;
+}
+.page-login h2 {
+  text-align: center;
+}
+.page-login .form-item input:focus,
+.page-login .form-item input:focus-within {
+  border-color: var(--bgSecondary) !important;
+  box-shadow: 0 0 0 2px #e7f3ff;
+}
+.page-login .login-container .btn {
+  background-color: var(--bgSecondary);
+  color: #fff;
+  width: 100%;
+}
+.login-container {
+  padding: 50px 0;
+}
+.page-login .form-links {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+.page-login .form-links a {
+  color: var(--bgSecondary);
+}

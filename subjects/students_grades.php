@@ -50,7 +50,10 @@
                         First Name
                     </div>
                     <div class="table-column">
-                        Last Name
+                        Grade
+                    </div>
+                    <div class="table-column">
+                        Status
                     </div>
                     
                 </div>
@@ -76,11 +79,14 @@
                                     echo "
                                     <div class='item table-row'>
                                         <div class='item-wrapper table-row-wrapper'>
-                                            <div class='table-column fname'>
-                                                {$student['first_name']}
+                                            <div class='table-column fullname'>
+                                                {$student['first_name']} {$student['last_name']}
                                             </div>
-                                            <div class='table-column secondary lname'>
-                                                {$student['last_name']}
+                                            <div class='table-column grade'>
+                                                
+                                            </div>
+                                            <div class='table-column status'>
+                                                FAILED
                                             </div>
                                         </div>
                                     </div>
