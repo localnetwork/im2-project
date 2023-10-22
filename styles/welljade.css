@@ -1,0 +1,30 @@
+/* WELLJADE */
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    padding: 100px 50px;
+    margin: 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  @media (max-width:768px) { 
+    .login-container {
+        text-align: center;
+        margin: 0px 100px;
+        font-size: x-small;
+    }
+  
+    .btn{
+        font-size: x-small;
+    }
+  
+    .form-item input {
+        height: 10px;
+        border-radius: 0px;
+    }
+}
