@@ -12,7 +12,7 @@
    </head>
    <body>
       <div class="main-wrapper">
-         <div class="box">
+         <div class="login-container">
             <h2>Login your account.</h2>
             <?php
                require_once '../templates/alerts/alerts.php';
