@@ -1,5 +1,5 @@
 <?php
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
+    require_once(__DIR__ . '/../../core/objects/user.php');
     
     if (isset($_SESSION['user'])) {
         $user_email = $_SESSION['user']['email'];

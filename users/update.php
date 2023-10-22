@@ -3,13 +3,13 @@
    <head>
       <title>Update Account</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
    </head>
    <body>
       <div class="main-wrapper">
         <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?>
          <div class="box">
             <h1 class="page-header">Update your account</h1>

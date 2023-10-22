@@ -3,12 +3,12 @@
    <head>
       <title>Add a subject</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
    </head>
    <body>
    <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
       <div class="main-wrapper">
          <div class="box">
@@ -36,7 +36,7 @@
                   <label for="instructor_id">Instructor:</label>
                   <select type="textarea" id="instructor_id" name="instructor_id" required>
                   <?php
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php');
+                        require_once(__DIR__ . '/../core/objects/instructor.php');
                         $instructors = new Instructor(); 
                         $instructors = $instructors->getInstructors(); 
 

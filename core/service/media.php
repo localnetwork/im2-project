@@ -16,9 +16,9 @@ function insertMedia($profile_picture, $db) {
     $stmt->bindParam(':uri', $path); 
 
    
-    $uri = $_SERVER['DOCUMENT_ROOT'] . "/storage/images/{$filename}";
+    $uri = __DIR__ . "/../../storage/images/{$filename}";
    
-    $uploadOk = 1; 
+    $uploadOk = 1;  
    
     if(isset($_POST)) {
         $check = getimagesize($_FILES['profile_picture']["tmp_name"]);

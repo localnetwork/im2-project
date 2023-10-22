@@ -2,7 +2,7 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start(); 
     }
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/cache/disable-cache.php');
+    require_once(__DIR__ . '/../../core/cache/disable-cache.php');
     $alert_type = ''; 
 
     if (isset($_SESSION['messages']['errors']) && is_array($_SESSION['messages']['errors'])) {

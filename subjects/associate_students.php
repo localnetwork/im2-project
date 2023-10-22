@@ -3,12 +3,12 @@
    <head>
       <title>Add a subject</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
    </head>
    <body>
    <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
       <div class="main-wrapper">
          <div class="box">
@@ -26,8 +26,8 @@
                 <div class="form-item checkboxes">
                   <label for="instructor_id">Add Students:</label>
                   <?php
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student_subject_association.php');
+                        require_once(__DIR__ . '/../core/objects/student.php');
+                        require_once(__DIR__ . '/../core/objects/student_subject_association.php');
                         $student = new Student(); 
                         $students = $student->getStudents(); 
 

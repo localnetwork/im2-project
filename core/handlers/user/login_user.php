@@ -1,8 +1,8 @@
 <?php
 session_start(); 
 
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
+require_once (__DIR__ . '/../../objects/user.php');
+require_once(__DIR__ . '/../../config/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $conn = new Database();

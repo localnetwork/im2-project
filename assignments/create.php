@@ -3,12 +3,12 @@
    <head>
       <title>Add a subject</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
    </head>
    <body>
    <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
       <div class="main-wrapper">
          <div class="box">
@@ -25,17 +25,23 @@
             <form action="../../core/handlers/assignment/insert_assignment.php" method="POST">
                <div class="form-item">
                   <label for="subject">Subject:</label>
+                  
                   <select type="textarea" id="subject" name="subject" required>
-                  <?php
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
-                        $subjects = new Subject(); 
-                        $subjects = $subjects->getSubjects(); 
+                     <?php
+                           require_once(__DIR__ . '/../core/objects/subject.php');
+                           $subjects = new Subject(); 
+                           $subjects = $subjects->getSubjects(); 
 
-                        foreach ($subjects as $subject) {
-                           $selected = ($subject['subject_id'] == $_GET['id']) ? 'selected' : '';
-                           echo '<option ' . $selected . ' value="' . $subject['subject_id'] . '">' . $subject['title'] .'</option>';
-                        }
-                  ?>
+                           foreach ($subjects as $subject) {
+                              if(isset( $_GET['id'])) {
+                                 $selected = ($subject['subject_id'] == $_GET['id']) ? 'selected' : '';
+                              }else {
+                                 $selected = ''; 
+                              }
+                              
+                              echo '<option ' . $selected . ' value="' . $subject['subject_id'] . '">' . $subject['title'] .'</option>';
+                           }
+                     ?>
                   </select>
                 </div>
 

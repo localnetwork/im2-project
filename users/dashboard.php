@@ -5,17 +5,17 @@
 <head>
     <title>Dashboard</title>
     <?php
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+    require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-user">
     <div class="main-wrapper">
         <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?>  
         <div class="">
             <?php
-                require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/user.php');
+                require_once(__DIR__ . '/../core/objects/user.php');
 
                 
 

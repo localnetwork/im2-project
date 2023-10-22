@@ -3,17 +3,17 @@
 <head>
     <title>Delete Student</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
 <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
     <div class="main-wrapper">
         <div class="container">
             <?php 
-                require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');  
+                require_once (__DIR__ . '/../core/objects/subject.php');  
                 $subject = new Subject();  
                 $subject = $subject->getSubject(intval($_GET['id']));
                 if($subject !== false) {

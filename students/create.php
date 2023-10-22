@@ -3,12 +3,12 @@
    <head>
       <title>Add a student</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
    </head>
    <body>
    <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
       <div class="main-wrapper">
          <div class="box">

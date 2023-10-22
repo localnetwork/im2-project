@@ -3,12 +3,12 @@
 <head>
     <title>List of Students</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
 <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
     <div class="main-wrapper">
         <div class="container">
@@ -46,8 +46,8 @@
                         <?php
 
                         try {
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
+                            require_once(__DIR__ . '/../core/config/db.php');
+                            require_once(__DIR__ . '/../core/objects/student.php');
                             
                             $dbcon = new Database();
                             $db = $dbcon->getConnection();

@@ -1,9 +1,9 @@
 <?php
     class User {
         public function __construct() {
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/validators/userValidator.php');
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/service/media.php');
+            require_once(__DIR__ . '/../config/db.php');
+            require_once(__DIR__ . '/../validators/userValidator.php');
+            require_once(__DIR__ . '/../service/media.php');
             $dbcon = new Database(); 
     
             $this->db = $dbcon->getConnection(); 
@@ -23,7 +23,7 @@
             $stmt->bindParam(':filemime', $fileFormat);
             $stmt->bindParam(':uri', $path); 
 
-            $uri = $_SERVER['DOCUMENT_ROOT'] . "/storage/images/{$filename}";
+            $uri = __DIR__ . "/../../storage/images/{$filename}";
 
             $uploadOk = 1; 
 

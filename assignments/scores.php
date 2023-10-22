@@ -3,24 +3,24 @@
 <head>
     <title>List of Assignments</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
 <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
     <div class="main-wrapper">
         <div class="container">
         <h1 class="page-header">Scores in
             
             <?php
-                require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                require_once(__DIR__ . '/../core/objects/assignment.php');
                 $assignment = new Assignment(); 
                 $assignment = $assignment->getAssignment($_GET['id']); 
                 echo $assignment['title']; 
                 if($assignment === false) {
-                    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                    require_once(__DIR__ . '/../core/objects/assignment.php');
                 }
             ?>
         </h1>
@@ -57,9 +57,9 @@
                         <?php
 
                         try {
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student_subject_association.php');
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');
+                        require_once(__DIR__ . '/../core/objects/student.php');
+                        require_once(__DIR__ . '/../core/objects/student_subject_association.php');
+                        require_once(__DIR__ . '/../core/objects/assignment.php');
                             
                         $assignment = new Assignment();  
                         

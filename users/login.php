@@ -3,11 +3,11 @@
    <head>
       <title>Login</title>
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+         require_once(__DIR__ . '/../templates/head.php');
       ?>
 
       <?php
-         require_once($_SERVER['DOCUMENT_ROOT'] . '/core/redirects/dashboard-redirect.php');
+         require_once(__DIR__ . '/../core/redirects/dashboard-redirect.php');
       ?>
    </head>
    <body>

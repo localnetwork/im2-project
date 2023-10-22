@@ -3,17 +3,17 @@
 <head>
     <title>Delete Assignment?</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
 <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
     <div class="main-wrapper">
         <div class="container">
             <?php 
-                require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');  
+                require_once (__DIR__ . '/../core/objects/assignment.php');  
             $assignment = new Assignment();  
                 $assignment = $assignment->getAssignment(intval($_GET['id']));
                 if($assignment !== false) {

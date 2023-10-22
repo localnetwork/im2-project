@@ -1,6 +1,6 @@
 <?php
     session_start(); 
-    require_once ($_SERVER['DOCUMENT_ROOT'] . '/core/objects/assignment.php');  
+    require_once (__DIR__ . '/../../objects/assignment.php');  
 
     if($_SERVER["REQUEST_METHOD"] === 'POST') {
 

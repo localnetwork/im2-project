@@ -3,12 +3,12 @@
 <head>
     <title>List of Subjects</title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
 <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
         ?> 
     <div class="main-wrapper">
         <div class="container">
@@ -49,8 +49,8 @@
                         <?php
 
                         try {
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/config/db.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+                            require_once(__DIR__ . '/../core/config/db.php');
+                            require_once(__DIR__ . '/../core/objects/subject.php');
                             
                             
                             $dbcon = new Database();
@@ -64,7 +64,7 @@
                             }
                             foreach($subjects as $row) {
                                 if(isset($row['instructor'])) {
-                                    require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/instructor.php'); 
+                                    require_once(__DIR__ . '/../core/objects/instructor.php'); 
                                     $instructor = new Instructor(); 
                                     $instructor = $instructor->getInstructor($row['instructor']); 
                                 }

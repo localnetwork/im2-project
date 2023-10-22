@@ -2,24 +2,24 @@
 <html>
 <head>
     <title>Students in <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+            require_once(__DIR__ . '/../core/objects/subject.php');
             $subject = new Subject(); 
             $subject = $subject->getSubject($_GET['id']);
             echo $subject['title']; 
         ?> </title>
     <?php
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/head.php');
+        require_once(__DIR__ . '/../templates/head.php');
     ?>
 </head>
 <body class="page-students">
     <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/templates/layout/header.php');
+            require_once(__DIR__ . '/../templates/layout/header.php');
     ?> 
     <div class="main-wrapper">
         <div class="container">
         <h1 class="page-header">
         <?php
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/subject.php');
+            require_once(__DIR__ . '/../core/objects/subject.php');
             $subject = new Subject(); 
             $subject = $subject->getSubject($_GET['id']);
             echo $subject['title']; 
@@ -58,8 +58,8 @@
                         <?php
 
                         try {
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student.php');
-                            require_once($_SERVER['DOCUMENT_ROOT'] . '/core/objects/student_subject_association.php');
+                            require_once(__DIR__ . '/../core/objects/student.php');
+                            require_once(__DIR__ . '/../core/objects/student_subject_association.php');
                             $student = new Student(); 
                             $students = $student->getStudents();  
 
