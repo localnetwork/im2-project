@@ -10,9 +10,9 @@ class Database {
 
   public function __construct() {
     $this->servername = 'database';
-    $this->database = 'drupal9';
-    $this->username = 'drupal9';
-    $this->password = 'drupal9';
+    $this->database = 'welljade_db';
+    $this->username = 'welljade_user';
+    $this->password = 'U2h5K1UFY55EAcAr';
 
     try {
         $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->database", $this->username, $this->password);

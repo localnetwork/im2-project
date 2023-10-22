@@ -102,6 +102,7 @@ label {
 .container {
   max-width: 1140px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 .w-full {
   width: 100%;
@@ -446,6 +447,7 @@ label {
   width: 300px;
   height: 196px;
   object-fit: contain;
+  max-width: 100%;
 }
 
 .user-taskbar .row {
@@ -533,4 +535,12 @@ label {
 
 .welljade {
   background: red;
+}
+
+@media (max-width: 767px) {
+  .user-taskbar .row .card {
+    max-width: 100%;
+    flex: 0 0 100%;
+    width: 100%;
+  }
 }
