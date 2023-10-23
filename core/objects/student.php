@@ -5,7 +5,6 @@ class Student {
     private $last_name;
 
     public function __construct() {
-        // require_once '../config/db.php'; 
         require_once(__DIR__ . '/../config/db.php');
         $dbcon = new Database(); 
 
@@ -105,6 +104,27 @@ class Student {
             echo "Error: " . $e->getMessage();
             return false; // Error
         }
+    } 
+
+    public function getStudentGradeBySubject($subject_id, $student_id) {
+        try {
+            $stmt = $this->db->prepare("call sp_getStudentGradeBySubject(:sub_id, :stud_id)");
+            $stmt->bindParam(':sub_id', $subject_id, PDO::PARAM_INT);
+            $stmt->bindParam(':stud_id', $student_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Fetch the first row of the result set
+            $grade = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $grade; 
+
+            var_dump($grade); 
+    
+            
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false; // Error
+        } 
     } 
 }
 ?>

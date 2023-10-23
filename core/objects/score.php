@@ -114,7 +114,7 @@ class Score {
             if ($stmt->execute()) {
                 if ($stmt->rowCount() > 0) {
                     return true; // Success, at least one row was updated
-                } else {
+                } else { 
                     return false; // No rows were updated
                 }
             } else {

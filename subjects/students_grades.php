@@ -69,24 +69,43 @@
                             $studentsInSubject = new studentSubjectAssociation();  
                             $studentsInSubject = $studentsInSubject->getStudentsInSubject($_GET['id']);
                             $SidsinSubjects = array_column($studentsInSubject, 'student_id');
-                            
+
                             if(!$SidsinSubjects) {
                                 echo "<div class='no-result'>There are no students to show. Please associate a student.</div>"; 
                             }
-                            foreach($students as $student) {
-                                
-                                if(in_array($student['id'], $SidsinSubjects)) {
+
+                            // $SidsinSubjects = array_flip($SidsinSubjects); 
+
+
+                            foreach($students as $row) {
+                              
+                                if(in_array($row['id'], $SidsinSubjects)) {
+                                    $grade = $student->getStudentGradeBySubject($_GET['id'], $row['id']);
+
+                                    if($grade['total_grade']) {
+                                        $grade = $grade['total_grade'];
+
+                                        if($grade >= 75) {
+                                            $status = 'PASSED';
+                                        }else {
+                                            $status = 'FAILED'; 
+                                        }
+                                    }else {
+                                        $grade = 'No Grade'; 
+                                        $status = 'No Grade'; 
+                                    }
+                            
                                     echo "
                                     <div class='item table-row'>
                                         <div class='item-wrapper table-row-wrapper'>
                                             <div class='table-column fullname'>
-                                                {$student['first_name']} {$student['last_name']}
+                                                {$row['first_name']} {$row['last_name']}
                                             </div>
                                             <div class='table-column grade'>
-                                                
+                                                {$grade}
                                             </div>
                                             <div class='table-column status'>
-                                                FAILED
+                                                {$status}
                                             </div>
                                         </div>
                                     </div>
