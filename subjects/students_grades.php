@@ -31,10 +31,7 @@
         <div class="head-actions">
             <div class="">
                 
-                <p>A list of students in this subject.</p>
-            </div>
-            <div class="">
-                <a class="btn" href="./associate_students.php?id=<?php echo $_GET['id']; ?>">Associate students</a>
+                <p>The grades of students in this subject.</p>
             </div>
         </div>
         <div>
@@ -86,13 +83,16 @@
                                         $grade = $grade['total_grade'];
 
                                         if($grade >= 75) {
-                                            $status = 'PASSED';
+                                            $status = 'passed'; 
+                                            $statusM = 'PASSED';
                                         }else {
-                                            $status = 'FAILED'; 
+                                            $statusM = 'FAILED'; 
+                                            $status = 'failed'; 
                                         }
                                     }else {
                                         $grade = 'No Grade'; 
-                                        $status = 'No Grade'; 
+                                        $status = 'no-grade'; 
+                                        $statusM = 'No Grade'; 
                                     }
                             
                                     echo "
@@ -104,8 +104,8 @@
                                             <div class='table-column grade'>
                                                 {$grade}
                                             </div>
-                                            <div class='table-column status'>
-                                                {$status}
+                                            <div class='table-column'>
+                                                <span class='status {$status}'>{$statusM}</span>
                                             </div>
                                         </div>
                                     </div>
