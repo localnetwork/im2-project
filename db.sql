@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteAssignment` (IN `ass_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_deleteAssignment` (IN `ass_id` INT)  SQL SECURITY INVOKER
 BEGIN
     DECLARE ass_count INT;
 
@@ -42,14 +42,14 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteMediaById` (IN `media_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_deleteMediaById` (IN `media_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 DELETE FROM media WHERE mid = media_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteScore` (IN `score_id` INT)  BEGIN
+CREATE PROCEDURE `sp_deleteScore` (IN `score_id` INT)  BEGIN
     DECLARE score_count INT;
 
     SELECT COUNT(*) INTO score_count
@@ -65,7 +65,7 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteScore` (IN `score_id` INT)  BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_deleteStudent` (IN `studentId` INT)  SQL SECURITY INVOKER
 BEGIN
     DECLARE student_count INT;
 
@@ -82,14 +82,14 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteStudentsToSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_deleteStudentsToSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 DELETE FROM students_assigned_subjects WHERE subject_id = sub_id; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_deleteSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
 BEGIN
     DECLARE subject_count INT;
 
@@ -106,42 +106,42 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignment` (IN `ass_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getAssignment` (IN `ass_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from assignments WHERE assignment_id = ass_id; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignmentBySubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getAssignmentBySubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from assignments WHERE subject_id = sub_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getAssignments` ()  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getAssignments` ()  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from assignments;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructor` (IN `user_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getInstructor` (IN `user_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from users WHERE role = 2 AND id = user_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getInstructors` ()  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getInstructors` ()  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from users WHERE role = 2;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getLastMedia` ()  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getLastMedia` ()  SQL SECURITY INVOKER
 BEGIN
 
 
@@ -149,44 +149,44 @@ SELECT * FROM media ORDER BY mid DESC LIMIT 1;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getMediaById` (IN `media_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getMediaById` (IN `media_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from media WHERE mid = media_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getRole` (IN `user_role_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getRole` (IN `user_role_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from roles WHERE role_id = user_role_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getScore` (IN `ass_id` INT, IN `stud_id` INT)  BEGIN
+CREATE PROCEDURE `sp_getScore` (IN `ass_id` INT, IN `stud_id` INT)  BEGIN
 
 SELECT * from assignment_score WHERE assignment_id = ass_id AND student_id = stud_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getScoreById` (IN `score_id` INT)  BEGIN
+CREATE PROCEDURE `sp_getScoreById` (IN `score_id` INT)  BEGIN
 
 SELECT * from assignment_score WHERE id = score_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudent` (IN `studentId` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getStudent` (IN `studentId` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * FROM students WHERE id = studentId;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentAssignmentScore` (IN `stud_id` INT(255), IN `ass_id` INT(255))  BEGIN
+CREATE PROCEDURE `sp_getStudentAssignmentScore` (IN `stud_id` INT(255), IN `ass_id` INT(255))  BEGIN
     SELECT * FROM assignment_score WHERE student_id = stud_id AND assignment_id = ass_id;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentGradeBySubject` (IN `sub_id` INT, IN `stud_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getStudentGradeBySubject` (IN `sub_id` INT, IN `stud_id` INT)  SQL SECURITY INVOKER
 BEGIN
     DECLARE total_score_stud DECIMAL(10, 2);
     DECLARE total_score_sub DECIMAL(10, 2);
@@ -206,48 +206,48 @@ BEGIN
     SELECT CAST(SUM(total_score_stud / total_score_sub) * 100 AS DECIMAL(10, 2)) AS total_grade;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudents` ()  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getStudents` ()  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from students; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getStudentsInSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getStudentsInSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from students_assigned_subjects WHERE subject_id = sub_id;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getSubject` (IN `sub_id` INT)  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from subjects WHERE subject_id = sub_id; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getSubjects` ()  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getSubjects` ()  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * from subjects; 
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_getUserInfo` (IN `userEmail` VARCHAR(255))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_getUserInfo` (IN `userEmail` VARCHAR(255))  SQL SECURITY INVOKER
 BEGIN
 
 SELECT * FROM users WHERE email = userEmail;
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertAssignment` (IN `author_id` INT, IN `subject_id` INT, IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertAssignment` (IN `author_id` INT, IN `subject_id` INT, IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
 BEGIN
     INSERT INTO assignments (author, subject_id, title, assignment_description, total_score)
     VALUES (author_id, subject_id, assignment_title, ass_description, score);
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertMedia` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertMedia` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255))  SQL SECURITY INVOKER
 BEGIN
 
 DECLARE formatted_now VARCHAR(255);
@@ -257,7 +257,7 @@ VALUES (file_name, uri, file_mime);
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertMediaAnonymous` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `sp_insertMediaAnonymous` (IN `file_name` VARCHAR(255), IN `uri` VARCHAR(500), IN `file_mime` VARCHAR(255))  BEGIN
 
 DECLARE formatted_now VARCHAR(255);
 
@@ -266,18 +266,18 @@ VALUES (file_name, uri, file_mime);
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertScore` (IN `score_value` INT, IN `stud_id` INT, IN `ass_id` INT)  BEGIN
+CREATE PROCEDURE `sp_insertScore` (IN `score_value` INT, IN `stud_id` INT, IN `ass_id` INT)  BEGIN
 
 INSERT INTO assignment_score (score, student_id, assignment_id)
     VALUES (score_value, stud_id, ass_id); 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertStudent` (IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertStudent` (IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
 BEGIN
     INSERT INTO students (first_name, last_name)    VALUES (first_name, last_name);
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertStudentsToSubject` (IN `sub_id` INT, IN `student_ids` VARCHAR(1000))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertStudentsToSubject` (IN `sub_id` INT, IN `student_ids` VARCHAR(1000))  SQL SECURITY INVOKER
 BEGIN
     DECLARE student_id INT;
     DECLARE studentList VARCHAR(1000);
@@ -312,13 +312,13 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertSubject` (IN `author_id` INT, IN `subject_title` VARCHAR(255), IN `subject_description` VARCHAR(500), IN `instructor_id` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertSubject` (IN `author_id` INT, IN `subject_title` VARCHAR(255), IN `subject_description` VARCHAR(500), IN `instructor_id` INT)  SQL SECURITY INVOKER
 BEGIN
     INSERT INTO subjects (author, title, description, instructor)
     VALUES (author_id, subject_title, subject_description, instructor_id);
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_insertUser` (IN `user_role_id` INT, IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `email` VARCHAR(255), IN `password` VARCHAR(255), IN `profile_picture` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_insertUser` (IN `user_role_id` INT, IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `email` VARCHAR(255), IN `password` VARCHAR(255), IN `profile_picture` INT)  SQL SECURITY INVOKER
 BEGIN
     DECLARE IsValidEmail BIT DEFAULT 0;
     
@@ -337,34 +337,34 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateAssignment` (IN `subject_id` INT(255), IN `ass_id` INT(255), IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_updateAssignment` (IN `subject_id` INT(255), IN `ass_id` INT(255), IN `assignment_title` VARCHAR(255), IN `ass_description` VARCHAR(255), IN `score` INT)  SQL SECURITY INVOKER
 BEGIN
     UPDATE assignments
 	SET title = assignment_title, assignment_description = ass_description, total_score = score
     WHERE assignment_id = ass_id;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateScore` (IN `score_id` INT, IN `score_value` INT)  BEGIN
+CREATE PROCEDURE `sp_updateScore` (IN `score_id` INT, IN `score_value` INT)  BEGIN
     UPDATE assignment_score
 	SET score = score_value
     WHERE id = score_id;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateStudent` (IN `studentId` INT, IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_updateStudent` (IN `studentId` INT, IN `first_name` VARCHAR(50), IN `last_name` VARCHAR(50))  SQL SECURITY INVOKER
 BEGIN
     UPDATE students
 	SET first_name = first_name, last_name = last_name
     WHERE id = studentId;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_updateSubject` (IN `sub_id` INT, IN `instructor_id` VARCHAR(255), IN `title` VARCHAR(255), IN `description` VARCHAR(500))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_updateSubject` (IN `sub_id` INT, IN `instructor_id` VARCHAR(255), IN `title` VARCHAR(255), IN `description` VARCHAR(500))  SQL SECURITY INVOKER
 BEGIN
     UPDATE subjects
 	SET instructor = instructor_id, title = title, description = description
     WHERE subject_id = sub_id;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_userLoginPost` (IN `p_email` VARCHAR(255), IN `p_password` VARCHAR(255))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_userLoginPost` (IN `p_email` VARCHAR(255), IN `p_password` VARCHAR(255))  SQL SECURITY INVOKER
 BEGIN
     DECLARE v_user_id INT;
     DECLARE v_hashed_password VARCHAR(255);
@@ -384,7 +384,7 @@ BEGIN
     END IF;
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `sp_userUpdate` (IN `user_email` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `profile_picture` VARCHAR(255))  SQL SECURITY INVOKER
+CREATE PROCEDURE `sp_userUpdate` (IN `user_email` VARCHAR(255), IN `first_name` VARCHAR(255), IN `last_name` VARCHAR(255), IN `profile_picture` VARCHAR(255))  SQL SECURITY INVOKER
 BEGIN
     UPDATE users
     SET email = user_email, first_name = first_name, last_name = last_name, profile_picture = profile_picture
